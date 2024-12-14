@@ -11,6 +11,7 @@ import ModuleFourIntro from '../pages/modules/ModuleFourIntro';
 import ModuleFourAlgorithm from '../pages/modules/ModuleFourAlgorithm';
 import ModuleFourReflection from '../pages/modules/ModuleFourReflection';
 import ModuleFourSummary from '../pages/modules/ModuleFourSummary';
+import ModuleFourPodcast from '../pages/modules/ModuleFourPodcast';
 
 export interface ManagedRoute {
     path: string
@@ -83,5 +84,10 @@ export const routes: (ManagedRoute)[] = [
         path: '/module-four/summary',
         name: "Module Four - Summary",
         child: <ModuleFourSummary />
+    },
+    {
+        path: '/module-four/podcast',
+        name: "Module Four - Podcast",
+        child: <ModuleFourPodcast />
     },
 ]

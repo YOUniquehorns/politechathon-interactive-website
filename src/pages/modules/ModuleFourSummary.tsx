@@ -178,10 +178,9 @@ const ModuleFourSummary = () => {
           </Button>
           <Button 
             variant="contained" 
-            onClick={() => navigate('/module-five')}
-            disabled={!showResults}
+            onClick={() => navigate('/module-four/podcast')}
           >
-            Nächstes Modul
+            Weiter zum Podcast
           </Button>
         </Box>
       </Box>
