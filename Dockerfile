@@ -14,4 +14,4 @@ EXPOSE 3000
 
 # start app
 # Set the default command to run when a container starts
-CMD [ "/bin/sh", "serve", "-s", "build", "-l", "3000" ]
+CMD [ "serve", "-s", "build", "-l", "3000" ]
