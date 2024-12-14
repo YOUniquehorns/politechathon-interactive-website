@@ -11,13 +11,13 @@ globals:
 
 steps:
   - name: prepare and install
-    image: node
+    image: yarnpkg/node-yarn
     commands:
-      - npm install
+      - yarn install
   - name: build
-    image: node
+    image: yarnpkg/node-yarn
     commands:
-      - npm run build
+      - yarn build
     depends_on:
       - prepare and install
   - name: publish docker
