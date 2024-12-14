@@ -4,6 +4,8 @@ import GraphPage from "../pages/components/GraphPage";
 import ModuleThreeIntro from '../pages/modules/ModuleThreeIntro';
 import ModuleThreeReflection from '../pages/modules/ModuleThreeReflection';
 import ModuleThreeExperiment from '../pages/modules/ModuleThreeExperiment';
+import React from "react";
+import HorizontalYouTubeVideos from "../pages/components/HorizontalYouTubeVideos";
 
 export interface ManagedRoute {
     path: string
@@ -46,5 +48,10 @@ export const routes: (ManagedRoute)[] = [
         path: '/module-three/experiment',
         name: "Module Three - Experiment",
         child: <ModuleThreeExperiment />
+    },
+    {
+        path: "/session/intro/video1",
+        name: "VideoPage1",
+        child: <HorizontalYouTubeVideos />,
     },
 ]

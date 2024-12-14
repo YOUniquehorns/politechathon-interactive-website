@@ -22,11 +22,9 @@ function App() {
     });
     return (
         <>
-            <PageTransitionWrapper>
-                <ThemeProvider theme={theme}>
-                    <Routing/>
-                </ThemeProvider>
-            </PageTransitionWrapper>
+            <ThemeProvider theme={theme}>
+                <Routing/>
+            </ThemeProvider>
         </>
     );
 }
