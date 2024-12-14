@@ -3,6 +3,7 @@ import ForceGraph2D, { NodeObject } from 'react-force-graph-2d';
 import { useNavigate } from 'react-router-dom';
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button, IconButton } from '@mui/material';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import {withAiAnimation} from "../../tools/AiAnimation";
 
 interface MyNodeObject extends NodeObject {
     id: string;
@@ -131,6 +132,7 @@ const GraphPage: React.FC = () => {
                     nodeLabel={(node: MyNodeObject) => node.name || ''}
                     onNodeHover={handleNodeHover}
                     onNodeClick={handleNodeClick}
+                    linkColor={() => '#E3F3FAFF'} // Light blue color for links
                     nodeCanvasObject={(node, ctx) => {
                         const isHovered = hoveredNodeId.current === node.id;
 
@@ -140,7 +142,7 @@ const GraphPage: React.FC = () => {
                         // Draw the node
                         ctx.beginPath();
                         ctx.arc(node.x!, node.y!, nodeRadius, 0, 2 * Math.PI, false);
-                        ctx.fillStyle = isHovered ? 'red' : '#00BFFF'; // Red on hover, light blue otherwise
+                        ctx.fillStyle = isHovered ? 'red' : '#00FFF7FF'; // Red on hover, light blue otherwise
                         ctx.fill();
                         ctx.closePath();
 
@@ -168,4 +170,4 @@ const GraphPage: React.FC = () => {
     );
 };
 
-export default GraphPage;
+export default withAiAnimation(GraphPage);

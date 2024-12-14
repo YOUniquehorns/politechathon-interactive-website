@@ -98,7 +98,11 @@ const AIChat: React.FC<AIChatProps> = ({systemPrompt, firstQuestion}) => {
                     >
                         <Box>
                             <Typography component="div">
-                                <Markdown>{message.content.replaceAll("<br/>","\n\n")}</Markdown>
+                                <Markdown>{message.content
+                                    .replaceAll("<br/>","\n\n")
+                                    .replaceAll("<BBdqt>","\"")
+                                    .replaceAll("<BBsqt>","\'")
+                                }</Markdown>
                             </Typography>
                         </Box>
                     </Box>
