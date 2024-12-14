@@ -1,6 +1,7 @@
-import Home from "../pages/home/Home";
 import ModuleTwo from "../pages/modules/ModuleTwo";
 import ModuleOne from "../pages/modules/ModuleOne";
+import OtherPage from "../pages/components/OtherPage";
+import GraphPage from "../pages/components/GraphPage";
 
 export interface ManagedRoute {
     path: string
@@ -12,7 +13,7 @@ export const routes: (ManagedRoute)[] = [
     {
         path: "/",
         name: "Home",
-        child: <Home />,
+        child: <GraphPage />,
     },
     {
         path: "/modules/one",
@@ -23,5 +24,10 @@ export const routes: (ManagedRoute)[] = [
         path: "/modules/two",
         name: "Module Two",
         child: <ModuleTwo />,
+    },
+    {
+        path: "/other/:nodeId",
+        name: "Module Two",
+        child: <OtherPage />,
     },
 ]

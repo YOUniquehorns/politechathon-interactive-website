@@ -1,0 +1,27 @@
+.page-wrapper {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    perspective: 1000px; /* for 3D transform */
+}
+
+/* Initial state */
+.page-wrapper > * {
+    backface-visibility: hidden;
+}
+
+.page-turn-animation {
+    animation: page-turn 0.8s ease-in-out forwards;
+}
+
+@keyframes page-turn {
+    0% {
+        transform: rotateY(0);
+    }
+    50% {
+        transform: rotateY(-90deg);
+    }
+    100% {
+        transform: rotateY(0);
+    }
+}
