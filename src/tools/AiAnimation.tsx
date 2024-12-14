@@ -67,9 +67,8 @@ const AiAnimation: React.FC<React.PropsWithChildren<AiAnimationProps>> = (props)
                         particles: {
                             color: {
                                 value: [
-                                    blue[500],
-                                    blue[300],
-                                    blue[600]
+                                    '#4E04B7',
+                                    '#789D25',
                                 ],
                             },
                             links: {

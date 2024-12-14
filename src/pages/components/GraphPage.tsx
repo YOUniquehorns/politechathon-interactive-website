@@ -80,8 +80,12 @@ const GraphPage: React.FC = () => {
 
             {/* Help Dialog */}
             <Dialog open={isHelpOpen} onClose={toggleHelpDialog}>
-                <DialogTitle>Hilfe</DialogTitle>
-                <DialogContent>
+                <DialogTitle sx={{
+                    color: 'black'
+                }}>Hilfe</DialogTitle>
+                <DialogContent sx={{
+                    color: 'black'
+                }}>
                     <p>
                         Dies ist ein interaktives Graph-Diagramm. Du kannst:
                     </p>
@@ -119,7 +123,7 @@ const GraphPage: React.FC = () => {
                     fontWeight: 'bold',
                     marginBottom: '16px',
                     marginTop: '64px', // Adjust vertical position
-                    color: 'black',
+                    color: 'white',
                     height: '30px', // Fix the height to prevent layout shifting
                 }}
             ></div>
@@ -142,7 +146,7 @@ const GraphPage: React.FC = () => {
                         // Draw the node
                         ctx.beginPath();
                         ctx.arc(node.x!, node.y!, nodeRadius, 0, 2 * Math.PI, false);
-                        ctx.fillStyle = isHovered ? 'red' : '#00FFF7FF'; // Red on hover, light blue otherwise
+                        ctx.fillStyle = isHovered ? '#4E04B7' : '#789D25'; // Red on hover, light blue otherwise
                         ctx.fill();
                         ctx.closePath();
 
@@ -157,7 +161,7 @@ const GraphPage: React.FC = () => {
                             ctx.beginPath();
                             ctx.arc(0, 0, ringRadius, 0, 2 * Math.PI, false); // Full circle
                             ctx.lineWidth = ringWidth;
-                            ctx.strokeStyle = 'rgba(255, 0, 0, 0.3)'; // Semi-transparent red
+                            ctx.strokeStyle = 'rgba(78, 4, 183, 0.3)'; // Semi-transparent red
                             ctx.stroke();
                             ctx.closePath();
 
