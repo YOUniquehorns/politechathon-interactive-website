@@ -1,6 +1,8 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import ForceGraph2D, { NodeObject } from 'react-force-graph-2d';
 import { useNavigate } from 'react-router-dom';
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, IconButton } from '@mui/material';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 
 interface MyNodeObject extends NodeObject {
     id: string;
@@ -13,16 +15,26 @@ const GraphPage: React.FC = () => {
     const hoveredNodeName = useRef<string | null>(null);
     const nameDisplayRef = useRef<HTMLDivElement>(null); // Ref for the displayed name
 
+    const [isHelpOpen, setIsHelpOpen] = useState(false); // State to control help dialog
+
     const graphData = {
         nodes: [
             { id: 'intro/video1', name: 'Session1' },
-            { id: 'node1', name: 'Node 1' },
-            { id: 'node2', name: 'Node 2' },
-            { id: 'node3', name: 'Node 3' }
+            { id: 'node1', name: 'Weißt du, dass du gefragt hast?' },
+            { id: 'node2', name: 'Fake News' },
+            { id: 'node3', name: 'Was kann ich tun?' },
+            { id: 'node4', name: 'Manipulative Algorithmen und Konsumverhalten' },
+            { id: 'node5', name: 'Co-Creation & Weiterentwicklung' },
+            { id: 'node6', name: 'Verzerrte Wirklichkeiten - KI-Halluzination' },
+            { id: 'node7', name: 'KI Act' }
         ],
         links: [
             { source: 'node1', target: 'node2' },
-            { source: 'node2', target: 'node3' }
+            { source: 'node1', target: 'node3' },
+            { source: 'node1', target: 'node4' },
+            { source: 'node1', target: 'node5' },
+            { source: 'node1', target: 'node6' },
+            { source: 'node6', target: 'node7' },
         ]
     };
 
@@ -45,8 +57,58 @@ const GraphPage: React.FC = () => {
         }
     };
 
+    const toggleHelpDialog = () => {
+        setIsHelpOpen(!isHelpOpen); // Open or close the help dialog
+    };
+
     return (
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+            {/* Help Icon */}
+            <IconButton
+                style={{
+                    position: 'absolute',
+                    top: 16,
+                    right: 16,
+                    zIndex: 1000,
+                    backgroundColor: 'white',
+                }}
+                onClick={toggleHelpDialog}
+            >
+                <HelpOutlineIcon style={{ fontSize: '72px' }} /> {/* Große Version des Symbols */}
+            </IconButton>
+
+            {/* Help Dialog */}
+            <Dialog open={isHelpOpen} onClose={toggleHelpDialog}>
+                <DialogTitle>Hilfe</DialogTitle>
+                <DialogContent>
+                    <p>
+                        Dies ist ein interaktives Graph-Diagramm. Du kannst:
+                    </p>
+                    <ul>
+                        <li>Über Knoten hovern, um deren Namen zu sehen.</li>
+                        <li>Auf einen Knoten klicken, um weitere Details zu öffnen.</li>
+                        <li>Den Graphen verschieben und zoomen, indem du die Maus benutzt.</li>
+                    </ul>
+                    <p>Klicke auf "Verstanden!", um diese Anleitung zu schließen.</p>
+                </DialogContent>
+                <DialogActions>
+                    {/* Verstanden-Button */}
+                    <Button
+                        onClick={toggleHelpDialog}
+                        color="primary"
+                        variant="contained"
+                        style={{
+                            width: '100%', // Button nimmt die gesamte Breite des Dialogfelds ein
+                            fontSize: '18px', // Optional: Größerer Text für den Button
+                            padding: '12px',  // Optional: Mehr Padding für bessere Optik
+                        }}
+                    >
+                        Verstanden!
+                    </Button>
+                </DialogActions>
+
+            </Dialog>
+
             {/* Display hovered node name with fixed height */}
             <div
                 ref={nameDisplayRef}
@@ -55,34 +117,36 @@ const GraphPage: React.FC = () => {
                     fontSize: '24px',
                     fontWeight: 'bold',
                     marginBottom: '16px',
-                    marginTop: '32px', // Adjust vertical position
+                    marginTop: '64px', // Adjust vertical position
                     color: 'black',
                     height: '30px', // Fix the height to prevent layout shifting
                 }}
-            >
-
-            </div>
+            ></div>
 
             {/* ForceGraph2D component */}
             <div style={{ width: '100%', height: 'calc(100vh - 100px)' }}>
                 <ForceGraph2D
                     graphData={graphData}
+                    linkWidth={4} // Make the links thicker
                     nodeLabel={(node: MyNodeObject) => node.name || ''}
                     onNodeHover={handleNodeHover}
                     onNodeClick={handleNodeClick}
                     nodeCanvasObject={(node, ctx) => {
                         const isHovered = hoveredNodeId.current === node.id;
 
+                        // Adjust Node Size
+                        const nodeRadius = 5;
+
                         // Draw the node
                         ctx.beginPath();
-                        ctx.arc(node.x!, node.y!, 5, 0, 2 * Math.PI, false);
-                        ctx.fillStyle = isHovered ? 'red' : '#ADD8E6'; // Red on hover, light blue otherwise
+                        ctx.arc(node.x!, node.y!, nodeRadius, 0, 2 * Math.PI, false);
+                        ctx.fillStyle = isHovered ? 'red' : '#00BFFF'; // Red on hover, light blue otherwise
                         ctx.fill();
                         ctx.closePath();
 
                         // Draw a full round ring around the hovered node
                         if (isHovered) {
-                            const ringRadius = 12;
+                            const ringRadius = nodeRadius + 4; // Slightly larger than the node
                             const ringWidth = 3;
 
                             ctx.save();
