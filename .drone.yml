@@ -49,7 +49,7 @@ steps:
       KUBE_TOKEN:
         from_secret: kube_token
     when:
-      ref:
-        - refs/heads/master
+      branch:
+        - main
     depends_on:
       - publish docker
