@@ -10,6 +10,7 @@ import StartPage from '../pages/StartPage';
 import ModuleFourIntro from '../pages/modules/ModuleFourIntro';
 import ModuleFourAlgorithm from '../pages/modules/ModuleFourAlgorithm';
 import ModuleFourReflection from '../pages/modules/ModuleFourReflection';
+import ModuleFourSummary from '../pages/modules/ModuleFourSummary';
 
 export interface ManagedRoute {
     path: string
@@ -77,5 +78,10 @@ export const routes: (ManagedRoute)[] = [
         path: '/module-four/reflection',
         name: "Module Four - Reflection",
         child: <ModuleFourReflection />
+    },
+    {
+        path: '/module-four/summary',
+        name: "Module Four - Summary",
+        child: <ModuleFourSummary />
     },
 ]

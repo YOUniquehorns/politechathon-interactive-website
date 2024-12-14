@@ -8,21 +8,23 @@ const ModuleFourAlgorithm = () => {
 
   const feeds = [
     {
-      user: "Person A",
+      user: "Anna",
       interests: "Sport, Gaming",
       articles: [
         "Neuer eSports-Rekord aufgestellt",
         "Fußball-Bundesliga Ergebnisse",
         "Gaming-PC oder Konsole?",
+        "Top 10 Fitness-Apps 2024"
       ]
     },
     {
-      user: "Person B",
+      user: "Max",
       interests: "Politik, Umwelt",
       articles: [
         "Neue Klimaschutz-Maßnahmen",
         "Wahlergebnisse aus der Region",
         "Umweltprotest in der Innenstadt",
+        "Interview: Zukunft der Energiewende"
       ]
     }
   ];
@@ -31,7 +33,12 @@ const ModuleFourAlgorithm = () => {
     <Container>
       <Box sx={{ mt: 4 }}>
         <Typography variant="h5" gutterBottom>
-          Der gleiche Feed - verschiedene Welten
+          Filterblasen: Gleiche App, verschiedene Welten
+        </Typography>
+
+        <Typography variant="body1" gutterBottom sx={{ mb: 4 }}>
+          Anna und Max nutzen dieselbe News-App - und sehen trotzdem völlig unterschiedliche Inhalte.
+          Algorithmen zeigen jedem User genau das, was zu seinen Interessen passt.
         </Typography>
 
         <Grid container spacing={4} sx={{ my: 3 }}>
@@ -39,15 +46,15 @@ const ModuleFourAlgorithm = () => {
             <Grid item xs={12} md={6} key={index}>
               <Card>
                 <CardContent>
-                  <Typography variant="h6" gutterBottom>
-                    {feed.user}
+                  <Typography variant="h6" gutterBottom color="primary">
+                    {feed.user}s Feed
                   </Typography>
                   <Typography variant="body2" color="textSecondary">
                     Interessen: {feed.interests}
                   </Typography>
                   <Box sx={{ mt: 2 }}>
                     {feed.articles.map((article, i) => (
-                      <Typography key={i} variant="body1" sx={{ mb: 1 }}>
+                      <Typography key={i} variant="body1" sx={{ mb: 1 }} color="text.secondary">
                         • {article}
                       </Typography>
                     ))}
@@ -63,15 +70,44 @@ const ModuleFourAlgorithm = () => {
           onClick={() => setShowExplanation(!showExplanation)}
           sx={{ mb: 3 }}
         >
-          Was bedeutet das?
+          Warum ist das gefährlich?
         </Button>
 
         {showExplanation && (
-          <Typography variant="body1" sx={{ mb: 3 }}>
-            Algorithmen zeigen jedem Nutzer unterschiedliche Inhalte basierend auf persönlichen Interessen und Verhalten. 
-            Das führt zu "Filterblasen" - wir sehen nur noch das, was zu unseren Ansichten passt.
-          </Typography>
+          <Box sx={{ bgcolor: 'error.light', p: 2, borderRadius: 1, mb: 3 }}>
+            <Typography variant="body1" component="div">
+              <ul style={{ margin: 0, paddingLeft: '20px' }}>
+                <li>Filterblasen verstärken einseitige Sichtweisen</li>
+                <li>Andere Perspektiven werden ausgeblendet</li>
+                <li>Vorurteile können sich verstärken</li>
+                <li>Der gesellschaftliche Dialog wird erschwert</li>
+              </ul>
+            </Typography>
+          </Box>
         )}
+
+        <Box sx={{ my: 4, bgcolor: 'primary.light', p: 2, borderRadius: 1 }}>
+          <Typography variant="h6" gutterBottom>
+            Das hast du gelernt:
+          </Typography>
+          <ul style={{ margin: 0, paddingLeft: '20px' }}>
+            <li>
+              <Typography variant="body1">
+                Algorithmen personalisieren unseren Newsfeed
+              </Typography>
+            </li>
+            <li>
+              <Typography variant="body1">
+                Jeder User sieht andere Inhalte
+              </Typography>
+            </li>
+            <li>
+              <Typography variant="body1">
+                Filterblasen können zu einseitiger Information führen
+              </Typography>
+            </li>
+          </ul>
+        </Box>
 
         <Box sx={{ mt: 4, display: 'flex', justifyContent: 'space-between' }}>
           <Button 
@@ -84,7 +120,7 @@ const ModuleFourAlgorithm = () => {
             variant="contained" 
             onClick={() => navigate('/module-four/reflection')}
           >
-            Weiter
+            Weiter zu Lösungsstrategien
           </Button>
         </Box>
       </Box>

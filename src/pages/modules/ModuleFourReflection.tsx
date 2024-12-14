@@ -10,18 +10,54 @@ const ModuleFourReflection = () => {
     <Container>
       <Box sx={{ mt: 4 }}>
         <Typography variant="h5" gutterBottom>
-          Von reaktiv zu aktiv
+          Von reaktiv zu aktiv: Dein Weg zum bewussten Nachrichtenkonsum
         </Typography>
 
-        <Typography variant="body1" gutterBottom>
-          Lass uns gemeinsam Strategien entwickeln, wie du deinen Nachrichtenkonsum bewusster gestalten kannst.
+        <Typography variant="body1" gutterBottom sx={{ mb: 4 }}>
+          Jetzt weißt du, wie Algorithmen und reaktiver Konsum dein Nachrichtenverhalten beeinflussen. 
+          Zeit für einen Strategiewechsel!
         </Typography>
+
+        <Box sx={{ bgcolor: 'success.light', p: 2, borderRadius: 1, mb: 4 }}>
+          <Typography variant="h6" gutterBottom>
+            Tipps für aktiven Nachrichtenkonsum:
+          </Typography>
+          <ul>
+            <li>Feste Zeiten für Nachrichten einplanen</li>
+            <li>Verschiedene Quellen nutzen</li>
+            <li>Push-Benachrichtigungen reduzieren</li>
+            <li>Bewusst nach anderen Perspektiven suchen</li>
+          </ul>
+        </Box>
 
         <Box sx={{ my: 4 }}>
           <AIChat
-            systemPrompt="Du bist ein Coach für bewussten Medienkonsum. Hilf dem Nutzer, seinen Nachrichtenkonsum aktiver zu gestalten. Gib konkrete, praktische Tipps. Frage nach bisherigen Gewohnheiten und entwickle darauf aufbauend individuelle Strategien."
-            firstQuestion="Was möchtest du an deinem Nachrichtenkonsum ändern? Lass uns gemeinsam einen Plan entwickeln, wie du bewusster mit Nachrichten umgehen kannst."
+            systemPrompt="Du bist ein Coach für bewussten Medienkonsum. Hilf dem Nutzer, seinen Nachrichtenkonsum aktiver zu gestalten. Gib konkrete, praktische Tipps. Frage nach bisherigen Gewohnheiten und entwickle darauf aufbauend individuelle Strategien. Bleibe dabei motivierend und ermutigend."
+            firstQuestion="Lass uns einen persönlichen Plan für deinen aktiven Nachrichtenkonsum entwickeln! Welche der bisherigen Gewohnheiten möchtest du als erstes ändern?"
           />
+        </Box>
+
+        <Box sx={{ my: 4, bgcolor: 'primary.light', p: 2, borderRadius: 1 }}>
+          <Typography variant="h6" gutterBottom>
+            Dein Lernfortschritt:
+          </Typography>
+          <ul style={{ margin: 0, paddingLeft: '20px' }}>
+            <li>
+              <Typography variant="body1">
+                Reaktiven Nachrichtenkonsum erkannt
+              </Typography>
+            </li>
+            <li>
+              <Typography variant="body1">
+                Gefahren von Filterblasen verstanden
+              </Typography>
+            </li>
+            <li>
+              <Typography variant="body1">
+                Strategien für aktiven Konsum entwickelt
+              </Typography>
+            </li>
+          </ul>
         </Box>
 
         <Box sx={{ mt: 4, display: 'flex', justifyContent: 'space-between' }}>
@@ -35,7 +71,7 @@ const ModuleFourReflection = () => {
             variant="contained" 
             onClick={() => navigate('/module-four/summary')}
           >
-            Zusammenfassung
+            Zum Abschlussquiz
           </Button>
         </Box>
       </Box>
