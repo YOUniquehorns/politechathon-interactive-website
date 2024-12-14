@@ -2,6 +2,7 @@ import ModuleTwo from "../pages/modules/ModuleTwo";
 import ModuleOne from "../pages/modules/ModuleOne";
 import OtherPage from "../pages/components/OtherPage";
 import GraphPage from "../pages/components/GraphPage";
+import ModuleThree from '../pages/modules/ModuleThree'
 
 export interface ManagedRoute {
     path: string
@@ -28,6 +29,6 @@ export const routes: (ManagedRoute)[] = [
     {
         path: "/other/:nodeId",
         name: "Module Two",
-        child: <OtherPage />,
+        child: <ModuleThree />,
     },
 ]
