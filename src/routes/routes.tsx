@@ -2,6 +2,9 @@ import ModuleTwo from "../pages/modules/ModuleTwo";
 import ModuleOne from "../pages/modules/ModuleOne";
 import OtherPage from "../pages/components/OtherPage";
 import GraphPage from "../pages/components/GraphPage";
+import React from "react";
+import VideosPage1 from "../pages/components/VideosPage1";
+import HorizontalYouTubeVideos from "../pages/components/HorizontalYouTubeVideos";
 
 export interface ManagedRoute {
     path: string
@@ -29,5 +32,10 @@ export const routes: (ManagedRoute)[] = [
         path: "/other/:nodeId",
         name: "Module Two",
         child: <OtherPage />,
+    },
+    {
+        path: "/session/intro/video1",
+        name: "VideoPage1",
+        child: <HorizontalYouTubeVideos />,
     },
 ]
