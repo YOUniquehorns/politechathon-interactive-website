@@ -6,6 +6,7 @@ import ModuleThreeReflection from '../pages/modules/ModuleThreeReflection';
 import ModuleThreeExperiment from '../pages/modules/ModuleThreeExperiment';
 import React from "react";
 import HorizontalYouTubeVideos from "../pages/components/HorizontalYouTubeVideos";
+import StartPage from '../pages/StartPage';
 
 export interface ManagedRoute {
     path: string
@@ -15,7 +16,12 @@ export interface ManagedRoute {
 
 export const routes: (ManagedRoute)[] = [
     {
-        path: "/",
+        path: '/',
+        name: "Start",
+        child: <StartPage />
+    },
+    {
+        path: "/home",
         name: "Home",
         child: <GraphPage />,
     },
