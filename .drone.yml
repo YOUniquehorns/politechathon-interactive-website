@@ -11,11 +11,11 @@ globals:
 
 steps:
   - name: prepare and install
-    image: node
+    image: node:23-alpine
     commands:
       - yarn install
   - name: build
-    image: node
+    image: node:23-alpine
     commands:
       - yarn build
     depends_on:
