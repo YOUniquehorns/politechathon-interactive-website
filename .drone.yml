@@ -1,0 +1,55 @@
+kind: pipeline
+type: kubernetes
+name: build
+
+globals:
+  - &docker_cred
+    username:
+      from_secret: docker_user
+    password:
+      from_secret: docker_password
+
+steps:
+  - name: prepare and install
+    image: node
+    commands:
+      - npm install
+  - name: build
+    image: node
+    commands:
+      - npm run build
+    depends_on:
+      - prepare and install
+  - name: publish docker
+    image: plugins/docker
+    settings:
+      repo: docker.mumme-it.de/politechathon/interactive-website
+      registry: https://docker.mumme-it.de
+      dockerfile: ./Dockerfile
+      tags: [ "${DRONE_COMMIT_SHA:0:7}", "latest" ]
+      <<: *docker_cred
+    depends_on:
+      - build
+  - name: deploy service
+    image: pelotech/drone-helm3
+    settings:
+      mode: upgrade
+      chart: ./interactive-website
+      release: interactive-website
+      namespace: politechathon
+      values_files: ./interactive-website/values.yaml
+      values: "image.tag=${DRONE_COMMIT_SHA:0:7}"
+      cleanup_failed_upgrade: true
+      wait_for_upgrade: true
+      reuse_values: true
+      timeout: 2m
+    environment:
+      KUBE_SERVICE_ACCOUNT: default
+      KUBE_API_SERVER: "https://k8s.mumme-it.de"
+      KUBE_TOKEN:
+        from_secret: kube_token
+    when:
+      ref:
+        - refs/heads/master
+    depends_on:
+      - publish docker

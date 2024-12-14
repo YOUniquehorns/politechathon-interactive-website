@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: interactive-website
+  labels:
+    app: interactive-website
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: interactive-website
+  template:
+    metadata:
+      annotations:
+        rollme: {{ randAlphaNum 5 | quote }}
+      labels:
+        app: interactive-website
+    spec:
+      containers:
+        - name: interactive-website
+          image: docker.mumme-it.de/politechathon/interactive-website:{{ .Values.image.tag | default "latest" }}
+          ports:
+            - containerPort: 3000
+      imagePullSecrets:
+        - name: docker-registry-cred
