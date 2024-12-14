@@ -1,4 +1,4 @@
 image:
   tag: latest
 ingress:
-  host: todo.mumme-it.de
+  host: learneria.de
