@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { TextField, Button, Box, CircularProgress, Typography } from '@mui/material';
 import OpenAI from 'openai';
 
 interface AIChatProps {
   systemPrompt: string;
+  firstQuestion?: string;
 }
 
 interface Message {
@@ -11,10 +12,16 @@ interface Message {
   content: string;
 }
 
-const AIChat: React.FC<AIChatProps> = ({ systemPrompt }) => {
+const AIChat: React.FC<AIChatProps> = ({ systemPrompt, firstQuestion }) => {
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState<Message[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    if (firstQuestion) {
+      setMessages([{ role: 'assistant', content: firstQuestion }]);
+    }
+  }, [firstQuestion]);
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setInput(event.target.value);

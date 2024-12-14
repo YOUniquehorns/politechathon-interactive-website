@@ -1,8 +1,9 @@
 import ModuleTwo from "../pages/modules/ModuleTwo";
 import ModuleOne from "../pages/modules/ModuleOne";
-import OtherPage from "../pages/components/OtherPage";
 import GraphPage from "../pages/components/GraphPage";
-import ModuleThree from '../pages/modules/ModuleThree'
+import ModuleThreeIntro from '../pages/modules/ModuleThreeIntro';
+import ModuleThreeReflection from '../pages/modules/ModuleThreeReflection';
+import ModuleThreeExperiment from '../pages/modules/ModuleThreeExperiment';
 
 export interface ManagedRoute {
     path: string
@@ -29,6 +30,21 @@ export const routes: (ManagedRoute)[] = [
     {
         path: "/other/:nodeId",
         name: "Module Two",
-        child: <ModuleThree />,
+        child: <ModuleThreeIntro />,
+    },
+    {
+        path: '/module-three',
+        name: "Module Three - Intro",
+        child: <ModuleThreeIntro />
+    },
+    {
+        path: '/module-three/reflection',
+        name: "Module Three - Reflection",
+        child: <ModuleThreeReflection />
+    },
+    {
+        path: '/module-three/experiment',
+        name: "Module Three - Experiment",
+        child: <ModuleThreeExperiment />
     },
 ]
