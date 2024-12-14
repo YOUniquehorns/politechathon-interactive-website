@@ -4,7 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c080f3bf-5d12-404f-b156-9249160e0341" name="Changes" comment="add build and deployment steps" />
+    <list default="true" id="c080f3bf-5d12-404f-b156-9249160e0341" name="Changes" comment="use yarn to build">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -87,7 +89,7 @@
       <option name="presentableId" value="Default" />
       <updated>1734175201740</updated>
       <workItem from="1734175202609" duration="2182000" />
-      <workItem from="1734180705966" duration="305000" />
+      <workItem from="1734180705966" duration="1567000" />
     </task>
     <task id="LOCAL-00001" summary="initialize project">
       <option name="closed" value="true" />
@@ -105,7 +107,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734180725706</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="use yarn to build">
+      <option name="closed" value="true" />
+      <created>1734181103326</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1734181103326</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -114,7 +124,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initialize project" />
     <MESSAGE value="add build and deployment steps" />
-    <option name="LAST_COMMIT_MESSAGE" value="add build and deployment steps" />
+    <MESSAGE value="use yarn to build" />
+    <option name="LAST_COMMIT_MESSAGE" value="use yarn to build" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
