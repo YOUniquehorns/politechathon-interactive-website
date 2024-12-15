@@ -1,13 +1,22 @@
-import React, { useRef, useState } from 'react';
-import ForceGraph2D, { NodeObject } from 'react-force-graph-2d';
-import { useNavigate } from 'react-router-dom';
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, IconButton } from '@mui/material';
+import React, {useRef, useState} from 'react';
+import ForceGraph2D, {NodeObject} from 'react-force-graph-2d';
+import {useNavigate} from 'react-router-dom';
+import {Dialog, DialogTitle, DialogContent, DialogActions, Button, IconButton} from '@mui/material';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import {withAiAnimation} from "../../tools/AiAnimation";
 
 interface MyNodeObject extends NodeObject {
     id: string;
     name?: string;
+}
+
+const nodeToLink = (nodeId: string) => {
+    switch (nodeId) {
+        case 'node1':
+            return '/session/intro/video/0';
+        default:
+            return undefined;
+    }
 }
 
 const GraphPage: React.FC = () => {
@@ -20,22 +29,27 @@ const GraphPage: React.FC = () => {
 
     const graphData = {
         nodes: [
-            { id: 'intro/video1', name: 'Session1' },
-            { id: 'node1', name: 'Weißt du, dass du gefragt hast?' },
-            { id: 'node2', name: 'Fake News' },
-            { id: 'node3', name: 'Was kann ich tun?' },
-            { id: 'node4', name: 'Manipulative Algorithmen und Konsumverhalten' },
-            { id: 'node5', name: 'Co-Creation & Weiterentwicklung' },
-            { id: 'node6', name: 'Verzerrte Wirklichkeiten - KI-Halluzination' },
-            { id: 'node7', name: 'KI Act' }
+            {id: 'node1', name: 'Weißt du, dass du gefragt hast?'},
+            {id: 'node2', name: 'Fake News'},
+            {id: 'node3', name: 'Was kann ich tun?'},
+            {id: 'node4', name: 'Manipulative Algorithmen und Konsumverhalten'},
+            {id: 'node5', name: 'Co-Creation & Weiterentwicklung'},
+            {id: 'node6', name: 'Verzerrte Wirklichkeiten - KI-Halluzination'},
+            {id: 'node7', name: 'KI Act'},
+            {id: 'node8', name: ''},
+            {id: 'node9', name: ''},
+            {id: 'node10', name: ''}
         ],
         links: [
-            { source: 'node1', target: 'node2' },
-            { source: 'node1', target: 'node3' },
-            { source: 'node1', target: 'node4' },
-            { source: 'node1', target: 'node5' },
-            { source: 'node1', target: 'node6' },
-            { source: 'node6', target: 'node7' },
+            {source: 'node1', target: 'node2'},
+            {source: 'node1', target: 'node3'},
+            {source: 'node1', target: 'node4'},
+            {source: 'node1', target: 'node5'},
+            {source: 'node1', target: 'node6'},
+            {source: 'node6', target: 'node7'},
+            {source: 'node6', target: 'node8'},
+            {source: 'node6', target: 'node9'},
+            {source: 'node5', target: 'node10'},
         ]
     };
 
@@ -50,12 +64,10 @@ const GraphPage: React.FC = () => {
     };
 
     const handleNodeClick = (node: MyNodeObject) => {
-        if (node.id === 'intro/video1') {
-            navigate(`/session/intro/video/0`);
-        } else {
-            // Navigate to other page with node id
-            navigate(`/other/${node.id}`);
-        }
+       const link = nodeToLink(node.id);
+       if(link){
+           navigate(link);
+       }
     };
 
     const toggleHelpDialog = () => {
@@ -63,7 +75,7 @@ const GraphPage: React.FC = () => {
     };
 
     return (
-        <div style={{ position: 'relative', width: '100%', height: '100%' }}>
+        <div style={{position: 'relative', width: '100%', height: '100%'}}>
             {/* Help Icon */}
             <IconButton
                 style={{
@@ -75,7 +87,7 @@ const GraphPage: React.FC = () => {
                 }}
                 onClick={toggleHelpDialog}
             >
-                <HelpOutlineIcon style={{ fontSize: '72px' }} /> {/* Große Version des Symbols */}
+                <HelpOutlineIcon style={{fontSize: '72px'}}/> {/* Große Version des Symbols */}
             </IconButton>
 
             {/* Help Dialog */}
@@ -129,11 +141,11 @@ const GraphPage: React.FC = () => {
             ></div>
 
             {/* ForceGraph2D component */}
-            <div style={{ width: '100%', height: 'calc(100vh - 100px)' }}>
+            <div style={{width: '100%', height: 'calc(100vh - 100px)'}}>
                 <ForceGraph2D
                     graphData={graphData}
                     enableZoomInteraction={false}
-                    minZoom={5}
+                    minZoom={8}
                     linkWidth={4} // Make the links thicker
                     nodeLabel={(node: MyNodeObject) => node.name || ''}
                     onNodeHover={handleNodeHover}
@@ -150,6 +162,11 @@ const GraphPage: React.FC = () => {
                         ctx.arc(node.x!, node.y!, nodeRadius, 0, 2 * Math.PI, false);
                         ctx.fillStyle = isHovered ? '#4E04B7' : '#789D25'; // Red on hover, light blue otherwise
                         ctx.fill();
+                        // Draw the node name
+                        ctx.font = '2px Arial';
+                        ctx.fillStyle = 'white';
+                        ctx.textAlign = 'center';
+                        ctx.fillText(node.name || '', node.x!, node.y!);
                         ctx.closePath();
 
                         // Draw a full round ring around the hovered node
