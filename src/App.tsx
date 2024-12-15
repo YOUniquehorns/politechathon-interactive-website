@@ -2,7 +2,6 @@ import React from 'react';
 import './App.css';
 import {createTheme, ThemeProvider} from "@mui/material";
 import Routing from "./routes/Routing";
-import PageTransitionWrapper from './pages/components/PageTransitionWrapper';
 
 function App() {
 
@@ -10,15 +9,20 @@ function App() {
     const theme = createTheme({
         palette: {
             primary: {
-                main: "#DF7C40"
+                main: "#4E04B7"
             },
             secondary: {
-                main: "#D1D3D5"
+                main: "#789D25"
             },
-            background: {
-                paper: "#F2F0EE"
+            text:{
+                primary: "#ffffff",
             }
-        }
+        },
+        typography: {
+        allVariants: {
+            color: "white"
+        },
+    }
     });
     return (
         <>
