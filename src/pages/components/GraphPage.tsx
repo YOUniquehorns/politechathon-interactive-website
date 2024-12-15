@@ -166,11 +166,12 @@ const GraphPage: React.FC = () => {
 
                         // Spezifische Knoten-IDs prüfen
                         const nodeRadius = node.id === 'node1' ? 10 : 5; // Node 1 größer machen
+                        const nodeColor = node.id === 'node1' ? '#4E04B7' : '#789D25'
 
                         // Draw the node
                         ctx.beginPath();
                         ctx.arc(node.x!, node.y!, nodeRadius, 0, 2 * Math.PI, false);
-                        ctx.fillStyle = isHovered ? '#4E04B7' : '#789D25'; // Red on hover, light blue otherwise
+                        ctx.fillStyle = isHovered ? '#4E04B7' : nodeColor; // Red on hover, light blue otherwise
                         ctx.fill();
 
                         // Draw the node name
