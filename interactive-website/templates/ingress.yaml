@@ -21,6 +21,3 @@ spec:
     - hosts:
         - {{ .Values.ingress.host }}
       secretName: interactive-website-cert
-    - hosts:
-        - medienmäntor.de
-      secretName: interactive-website-cert-2
