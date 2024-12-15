@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { withAiAnimation } from "../../tools/AiAnimation";
 import {getClickedVideos} from "../../tools/progress-tracker";
-import {Stack, Typography} from "@mui/material";
+import {Stack, Typography, Button} from "@mui/material";
+import { useNavigate } from 'react-router-dom';
 
 interface Node {
     id: string;
@@ -19,6 +20,7 @@ interface Link {
 
 const TreePage: React.FC = () => {
     const [hoveredNode, setHoveredNode] = useState<string | null>(null);
+    const navigate = useNavigate();
 
     const centerX = 750;
     const centerY = 50;
@@ -160,7 +162,6 @@ const TreePage: React.FC = () => {
     const finalDescription = generateDescription();
 
     return (
-
         <Stack>
             <Typography variant={"h5"} align={"center"} sx={{
                 marginTop:"2em",
@@ -229,9 +230,20 @@ const TreePage: React.FC = () => {
             }}>
                 <b>... {finalDescription}</b>
             </Typography>
+
+            <Button 
+                variant="contained" 
+                onClick={() => navigate('/module-four/algorithm')}
+                color="primary"
+                sx={{
+                    marginTop: '2em',
+                    alignSelf: 'center'
+                }}
+            >
+                Weiter
+            </Button>
         </Stack>
-)
-    ;
+    );
 };
 
 export default withAiAnimation(TreePage);

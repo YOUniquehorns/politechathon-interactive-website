@@ -75,18 +75,31 @@ const ModuleFourPodcast = () => {
           </Typography>
         </Box>
 
-        <Box sx={{ mt: 4, display: 'flex', justifyContent: 'space-between' }}>
+        <Box sx={{ mt: 4, display: 'flex', justifyContent: 'space-between', gap: 2 }}>
           <Button 
-            variant="outlined" 
+            variant="contained" 
             onClick={() => navigate('/module-four/summary')}
+            sx={{
+              background: '#000000',
+              boxShadow: '0 3px 5px 2px rgba(0, 0, 0, .3)',
+              '&:hover': {
+                background: '#333333',
+              }
+            }}
           >
             Zurück
           </Button>
           <Button 
             variant="contained" 
-            onClick={() => navigate('/')}
+            onClick={() => navigate('/module-three/experiment')}
+            sx={{
+              bgcolor: 'primary.main',
+              '&:hover': {
+                bgcolor: 'primary.dark',
+              }
+            }}
           >
-            Zum Hauptmenü
+            Nächste Lektion
           </Button>
         </Box>
       </Box>

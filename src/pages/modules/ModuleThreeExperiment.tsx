@@ -64,19 +64,31 @@ const ModuleThreeExperiment = () => {
         </Paper>
 
         {/* Navigation Button */}
-        <Box sx={{ mt: 4, display: 'flex', justifyContent: 'flex-start' }}>
+        <Box sx={{ mt: 4, display: 'flex', justifyContent: 'space-between', gap: 2 }}>
           <Button 
             variant="contained" 
             onClick={() => navigate('/module-three/reflection')}
-            sx={{ 
-              px: 4, 
-              py: 1.5,
-              borderRadius: 2,
-              textTransform: 'none',
-              fontSize: '1rem'
+            sx={{
+              background: '#000000',
+              boxShadow: '0 3px 5px 2px rgba(0, 0, 0, .3)',
+              '&:hover': {
+                background: '#333333',
+              }
             }}
           >
             Zurück zur Reflexion
+          </Button>
+          <Button 
+            variant="contained" 
+            onClick={() => navigate('/home')}
+            sx={{ 
+              bgcolor: 'primary.main',
+              '&:hover': {
+                bgcolor: 'primary.dark',
+              }
+            }}
+          >
+            Zum Hauptmenü
           </Button>
         </Box>
       </Box>
