@@ -50,7 +50,7 @@ const GraphPage: React.FC = () => {
             {id: 'node10', name: ''}
         ],
         links: [
-            {source: 'node1', target: 'node2'},
+            {source: 'node6', target: 'node2'},
             {source: 'node1', target: 'node3'},
             {source: 'node1', target: 'node4'},
             {source: 'node1', target: 'node5'},

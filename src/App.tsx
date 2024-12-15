@@ -14,15 +14,15 @@ function App() {
             secondary: {
                 main: "#789D25"
             },
-            text:{
+            text: {
                 primary: "#ffffff",
             }
         },
         typography: {
-        allVariants: {
-            color: "white"
-        },
-    }
+            allVariants: {
+                color: "white"
+            },
+        }
     });
     return (
         <>
