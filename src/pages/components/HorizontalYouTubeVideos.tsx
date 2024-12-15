@@ -157,7 +157,7 @@ const HorizontalYouTubeVideos: React.FC = () => {
     return (
         <>
             {/* Header Section */}
-            <Box sx={{ display: 'flex', alignItems: 'center', marginTop:"2em", marginLeft:"2em", mb: 4 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', marginTop: "2em", mb: 4 }}>
                 <PsychologyIcon sx={{ fontSize: 40, mr: 2, color: 'primary.main' }} />
                 <Typography variant="h4" component="h1" fontWeight="bold">
                     Lektion: <i>"Weißt du eigentlich, dass du gefragt hast?"</i>
