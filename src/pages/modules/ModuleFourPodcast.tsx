@@ -91,7 +91,7 @@ const ModuleFourPodcast = () => {
           </Button>
           <Button 
             variant="contained" 
-            onClick={() => navigate('/module-three/experiment')}
+            onClick={() => navigate('/home')}
             sx={{
               bgcolor: 'primary.main',
               '&:hover': {
@@ -99,7 +99,7 @@ const ModuleFourPodcast = () => {
               }
             }}
           >
-            Nächste Lektion
+            Lektionsübersicht
           </Button>
         </Box>
       </Box>
