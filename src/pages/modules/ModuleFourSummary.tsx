@@ -72,6 +72,29 @@ const ModuleFourSummary = () => {
           Teste dein Wissen über reaktiven Nachrichtenkonsum und Filterblasen!
         </Typography>
 
+        <Box sx={{ my: 4, bgcolor: 'primary.light', p: 2, borderRadius: 1 }}>
+          <Typography variant="h6" gutterBottom>
+            Dein Lernfortschritt:
+          </Typography>
+          <ul style={{ margin: 0, paddingLeft: '20px', listStyle: 'none' }}>
+            <li>
+              <Typography variant="body1" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                ✓ Reaktiven Nachrichtenkonsum erkannt
+              </Typography>
+            </li>
+            <li>
+              <Typography variant="body1" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                ✓ Gefahren von Filterblasen verstanden
+              </Typography>
+            </li>
+            <li>
+              <Typography variant="body1" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                ✓ Strategien für aktiven Konsum entwickelt
+              </Typography>
+            </li>
+          </ul>
+        </Box>
+
         <Box sx={{ my: 4 }}>
           {questions.map((q, questionIndex) => (
             <Box key={questionIndex} sx={{ 
@@ -81,7 +104,7 @@ const ModuleFourSummary = () => {
               borderRadius: 1,
               boxShadow: 1
             }}>
-              <Typography variant="h6" gutterBottom>
+              <Typography variant="h6" gutterBottom sx={{ color: '#000000' }}>
                 {q.question}
               </Typography>
               <FormControl component="fieldset">
@@ -102,8 +125,8 @@ const ModuleFourSummary = () => {
                               ? 'success.dark'
                               : answers[questionIndex] === optionIndex 
                                 ? 'error.dark' 
-                                : 'text.primary'
-                            : 'text.primary'
+                                : '#000000'
+                            : '#000000'
                         }
                       }}
                     />

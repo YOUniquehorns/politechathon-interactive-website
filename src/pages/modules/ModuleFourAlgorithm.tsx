@@ -32,7 +32,7 @@ const ModuleFourAlgorithm = () => {
   return (
     <Container>
       <Box sx={{ mt: 4 }}>
-        <Typography variant="h5" gutterBottom>
+        <Typography variant="h3" gutterBottom>
           Filterblasen: Gleiche App, verschiedene Welten
         </Typography>
 
@@ -68,13 +68,13 @@ const ModuleFourAlgorithm = () => {
         <Button 
           variant="outlined" 
           onClick={() => setShowExplanation(!showExplanation)}
-          sx={{ mb: 3 }}
+          sx={{ mb: 3, color: 'white' }}
         >
           Warum ist das gefährlich?
         </Button>
 
         {showExplanation && (
-          <Box sx={{ bgcolor: 'error.light', p: 2, borderRadius: 1, mb: 3 }}>
+          <Box sx={{ bgcolor: 'primary.light', p: 2, borderRadius: 1, mb: 3 }}>
             <Typography variant="body1" component="div">
               <ul style={{ margin: 0, paddingLeft: '20px' }}>
                 <li>Filterblasen verstärken einseitige Sichtweisen</li>
@@ -86,7 +86,7 @@ const ModuleFourAlgorithm = () => {
           </Box>
         )}
 
-        <Box sx={{ my: 4, bgcolor: 'primary.light', p: 2, borderRadius: 1 }}>
+        {/* <Box sx={{ my: 4, bgcolor: 'primary.light', p: 2, borderRadius: 1 }}>
           <Typography variant="h6" gutterBottom>
             Das hast du gelernt:
           </Typography>
@@ -107,7 +107,7 @@ const ModuleFourAlgorithm = () => {
               </Typography>
             </li>
           </ul>
-        </Box>
+        </Box> */}
 
         <Box sx={{ mt: 4, display: 'flex', justifyContent: 'space-between' }}>
           <Button 

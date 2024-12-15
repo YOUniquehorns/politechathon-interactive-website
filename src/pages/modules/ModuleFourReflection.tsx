@@ -37,29 +37,6 @@ const ModuleFourReflection = () => {
           />
         </Box>
 
-        <Box sx={{ my: 4, bgcolor: 'primary.light', p: 2, borderRadius: 1 }}>
-          <Typography variant="h6" gutterBottom>
-            Dein Lernfortschritt:
-          </Typography>
-          <ul style={{ margin: 0, paddingLeft: '20px' }}>
-            <li>
-              <Typography variant="body1">
-                Reaktiven Nachrichtenkonsum erkannt
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1">
-                Gefahren von Filterblasen verstanden
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1">
-                Strategien für aktiven Konsum entwickelt
-              </Typography>
-            </li>
-          </ul>
-        </Box>
-
         <Box sx={{ mt: 4, display: 'flex', justifyContent: 'space-between' }}>
           <Button 
             variant="outlined" 
