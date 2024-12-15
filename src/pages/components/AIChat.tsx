@@ -82,22 +82,57 @@ const AIChat: React.FC<AIChatProps> = ({systemPrompt, firstQuestion}) => {
     ;
 
     return (
-        <Box>
-            <Box sx={{mb: 2, maxHeight: '400px', overflowY: 'auto'}}>
+        <Box
+            sx={{
+                border: '1px solid',
+                borderColor: 'grey.300',
+                borderRadius: 2,
+                p: 3,
+                backgroundColor: '#ffffff',
+                boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+            }}
+        >
+            <Box sx={{
+                mb: messages.length > 0 ? 2 : 0, 
+                maxHeight: '400px', 
+                overflowY: 'auto',
+                backgroundColor: '#ffffff',
+                borderRadius: 1,
+                p: messages.length > 0 ? 2 : 0
+            }}>
                 {messages.map((message, index) => (
                     <Box
                         key={index}
                         sx={{
                             mb: 1,
                             p: 2,
-                            bgcolor: message.role === 'user' ? 'primary.light' : 'secondary.light',
+                            bgcolor: message.role === 'user' 
+                                ? '#e3f2fd'
+                                : '#f3e5f5',
                             borderRadius: 1,
                             maxWidth: '80%',
                             ml: message.role === 'user' ? 'auto' : 0,
+                            boxShadow: '0 1px 2px rgba(0,0,0,0.08)',
+                            '& p': {
+                                margin: '0.5em 0',
+                                '&:first-of-type': {
+                                    marginTop: 0,
+                                },
+                                '&:last-of-type': {
+                                    marginBottom: 0,
+                                }
+                            }
                         }}
                     >
                         <Box>
-                            <Typography component="div">
+                            <Typography 
+                                component="div" 
+                                sx={{
+                                    color: message.role === 'user' 
+                                        ? '#1565c0'
+                                        : '#6a1b9a'
+                                }}
+                            >
                                 <Markdown>{message.content
                                     .replaceAll("<br/>","\n\n")
                                     .replaceAll("<BBdqt>","\"")
@@ -123,6 +158,14 @@ const AIChat: React.FC<AIChatProps> = ({systemPrompt, firstQuestion}) => {
                     value={input}
                     onChange={handleInputChange}
                     onKeyPress={(e) => e.key === 'Enter' && handleSend()}
+                    sx={{
+                        '& label': {
+                            color: 'black'
+                        },
+                        '& .MuiInputBase-input': {
+                            color: 'black'
+                        }
+                    }}
                 />
                 <Button
                     variant="contained"

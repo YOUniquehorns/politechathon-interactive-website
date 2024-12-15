@@ -31,12 +31,31 @@ const ModuleFourAlgorithm = () => {
 
   return (
     <Container>
-      <Box sx={{ mt: 4 }}>
-        <Typography variant="h5" gutterBottom>
+      <Box sx={{ mt: 4, maxWidth: '900px', mx: 'auto' }}>
+        <Typography 
+          variant="h3" 
+          gutterBottom 
+          sx={{
+            fontWeight: 'bold',
+            background: 'linear-gradient(45deg, #C8E97D 30%, #E8F5D6 90%)',
+            backgroundClip: 'text',
+            textFillColor: 'transparent',
+            mb: 3
+          }}
+        >
           Filterblasen: Gleiche App, verschiedene Welten
         </Typography>
 
-        <Typography variant="body1" gutterBottom sx={{ mb: 4 }}>
+        <Typography 
+          variant="body1" 
+          gutterBottom 
+          sx={{ 
+            mb: 4, 
+            fontSize: '1.1rem',
+            lineHeight: 1.6,
+            color: 'white' 
+          }}
+        >
           Anna und Max nutzen dieselbe News-App - und sehen trotzdem völlig unterschiedliche Inhalte.
           Algorithmen zeigen jedem User genau das, was zu seinen Interessen passt.
         </Typography>
@@ -44,18 +63,61 @@ const ModuleFourAlgorithm = () => {
         <Grid container spacing={4} sx={{ my: 3 }}>
           {feeds.map((feed, index) => (
             <Grid item xs={12} md={6} key={index}>
-              <Card>
-                <CardContent>
-                  <Typography variant="h6" gutterBottom color="primary">
+              <Card 
+                elevation={3}
+                sx={{
+                  transition: 'transform 0.2s, box-shadow 0.2s',
+                  '&:hover': {
+                    transform: 'translateY(-4px)',
+                    boxShadow: 6
+                  }
+                }}
+              >
+                <CardContent sx={{ p: 3 }}>
+                  <Typography 
+                    variant="h6" 
+                    gutterBottom 
+                    sx={{
+                      color: 'primary.main',
+                      fontWeight: 'bold',
+                      borderBottom: '2px solid',
+                      borderColor: 'primary.main',
+                      pb: 1,
+                      mb: 2
+                    }}
+                  >
                     {feed.user}s Feed
                   </Typography>
-                  <Typography variant="body2" color="textSecondary">
+                  <Typography 
+                    variant="body2" 
+                    sx={{ 
+                      color: 'text.secondary',
+                      mb: 2,
+                      fontStyle: 'italic'
+                    }}
+                  >
                     Interessen: {feed.interests}
                   </Typography>
                   <Box sx={{ mt: 2 }}>
                     {feed.articles.map((article, i) => (
-                      <Typography key={i} variant="body1" sx={{ mb: 1 }} color="text.secondary">
-                        • {article}
+                      <Typography 
+                        key={i} 
+                        variant="body1" 
+                        sx={{ 
+                          mb: 1.5,
+                          display: 'flex',
+                          alignItems: 'center',
+                          color: '#000000',
+                          '&:before': {
+                            content: '"•"',
+                            color: 'primary.main',
+                            fontWeight: 'bold',
+                            fontSize: '1.2rem',
+                            mr: 1
+                          }
+                        }}
+                      >
+                        {article}
                       </Typography>
                     ))}
                   </Box>
@@ -66,59 +128,73 @@ const ModuleFourAlgorithm = () => {
         </Grid>
 
         <Button 
-          variant="outlined" 
+          variant="contained"
           onClick={() => setShowExplanation(!showExplanation)}
-          sx={{ mb: 3 }}
+          sx={{ 
+            mb: 3,
+            bgcolor: 'primary.main',
+            '&:hover': {
+              bgcolor: 'primary.dark',
+            }
+          }}
         >
-          Warum ist das gefährlich?
+          {showExplanation ? 'Erklärung ausblenden' : 'Warum ist das gefährlich?'}
         </Button>
 
         {showExplanation && (
-          <Box sx={{ bgcolor: 'error.light', p: 2, borderRadius: 1, mb: 3 }}>
+          <Box 
+            sx={{ 
+              bgcolor: 'primary.light',
+              p: 3,
+              borderRadius: 2,
+              mb: 3,
+              boxShadow: 2,
+              animation: 'fadeIn 0.5s ease-in'
+            }}
+          >
             <Typography variant="body1" component="div">
               <ul style={{ margin: 0, paddingLeft: '20px' }}>
-                <li>Filterblasen verstärken einseitige Sichtweisen</li>
-                <li>Andere Perspektiven werden ausgeblendet</li>
-                <li>Vorurteile können sich verstärken</li>
-                <li>Der gesellschaftliche Dialog wird erschwert</li>
+                {[
+                  'Filterblasen verstärken einseitige Sichtweisen',
+                  'Andere Perspektiven werden ausgeblendet',
+                  'Vorurteile können sich verstärken',
+                  'Der gesellschaftliche Dialog wird erschwert'
+                ].map((item, index) => (
+                  <li key={index} style={{ marginBottom: '0.5rem' }}>{item}</li>
+                ))}
               </ul>
             </Typography>
           </Box>
         )}
 
-        <Box sx={{ my: 4, bgcolor: 'primary.light', p: 2, borderRadius: 1 }}>
-          <Typography variant="h6" gutterBottom>
-            Das hast du gelernt:
-          </Typography>
-          <ul style={{ margin: 0, paddingLeft: '20px' }}>
-            <li>
-              <Typography variant="body1">
-                Algorithmen personalisieren unseren Newsfeed
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1">
-                Jeder User sieht andere Inhalte
-              </Typography>
-            </li>
-            <li>
-              <Typography variant="body1">
-                Filterblasen können zu einseitiger Information führen
-              </Typography>
-            </li>
-          </ul>
-        </Box>
-
-        <Box sx={{ mt: 4, display: 'flex', justifyContent: 'space-between' }}>
+        <Box sx={{ 
+          mt: 4, 
+          display: 'flex', 
+          justifyContent: 'space-between',
+          gap: 2 
+        }}>
           <Button 
-            variant="outlined" 
+            variant="contained" 
             onClick={() => navigate('/module-four')}
+            sx={{
+              background: '#000000',
+              boxShadow: '0 3px 5px 2px rgba(0, 0, 0, .3)',
+              '&:hover': {
+                background: '#333333',
+              }
+            }}
           >
             Zurück
           </Button>
           <Button 
             variant="contained" 
             onClick={() => navigate('/module-four/reflection')}
+            sx={{
+              bgcolor: 'primary.main',
+              '&:hover': {
+                bgcolor: 'primary.dark',
+              }
+            }}
           >
             Weiter zu Lösungsstrategien
           </Button>

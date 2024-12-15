@@ -1,8 +1,7 @@
 import {Box} from '@mui/material';
 import * as React from 'react';
-import {Route, BrowserRouter, Routes} from 'react-router-dom';
+import {BrowserRouter, Route, Routes} from 'react-router-dom';
 import {routes} from "./routes";
-import PageTransitionWrapper from "../pages/components/PageTransitionWrapper";
 
 export interface IRootProps {
 }
@@ -30,11 +29,9 @@ const Routing: React.FunctionComponent<IRootProps> = (props: IRootProps) => {
             <React.Suspense fallback={
                 <></>
             }>
-                <PageTransitionWrapper>
                     <Routes>
                         {displayedRoutes}
                     </Routes>
-                </PageTransitionWrapper>
             </React.Suspense>
         </BrowserRouter>
     </Box>)
