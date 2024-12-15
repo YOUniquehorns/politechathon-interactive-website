@@ -1,17 +1,11 @@
 import React, { useState } from 'react';
-import HomeIcon from '@mui/icons-material/Home';
-import StarIcon from '@mui/icons-material/Star';
-import SettingsIcon from '@mui/icons-material/Settings';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import WorkIcon from '@mui/icons-material/Work';
-import SchoolIcon from '@mui/icons-material/School';
 
 interface Node {
     id: string;
     x: number;
     y: number;
     label?: string;
-    icon?: JSX.Element; // Optional: Icon für den Knoten
+    imageUrl?: string; // URL des Bildes für den Knoten
 }
 
 interface Link {
@@ -27,11 +21,25 @@ const TreePage: React.FC = () => {
     const horizontalBase = 300; // Basisabstand für die horizontale Verteilung
     const verticalStep = 150; // Vertikaler Abstand zwischen den Ebenen
 
-    // Symbole für die Ebenen
-    const levelIcons = [
-        [<HomeIcon style={{ fontSize: 20, color: 'blue' }} />, <StarIcon style={{ fontSize: 20, color: 'yellow' }} />, <SettingsIcon style={{ fontSize: 20, color: 'green' }} />], // Ebene 1
-        [<FavoriteIcon style={{ fontSize: 20, color: 'red' }} />, <WorkIcon style={{ fontSize: 20, color: 'purple' }} />, <SchoolIcon style={{ fontSize: 20, color: 'orange' }} />], // Ebene 2
-        [<StarIcon style={{ fontSize: 20, color: 'pink' }} />, <HomeIcon style={{ fontSize: 20, color: 'teal' }} />, <WorkIcon style={{ fontSize: 20, color: 'lime' }} />], // Ebene 3
+    const nodeRadius = 20; // Radius der Nodes
+
+    // Bilder-URLs für die Ebenen
+    const levelImages = [
+        [
+            'https://ih1.redbubble.net/image.5541324284.6118/st,small,507x507-pad,600x600,f8f8f8.u3.jpg', // Ebene 1 Bild 1
+            'https://www.shutterstock.com/shutterstock/photos/2000070206/display_1500/stock-vector-cat-home-farm-animals-emoji-illustration-face-vector-design-art-flat-vector-dog-emoji-cat-face-2000070206.jpg', // Ebene 1 Bild 2
+            'https://images.emojiterra.com/google/noto-emoji/unicode-15/color/512px/26f7.png', // Ebene 1 Bild 3
+        ],
+        [
+            'https://i.pinimg.com/736x/b9/a4/95/b9a495527a7e14e8b49f8900acf59e36.jpg', // Ebene 2 Bild 1
+            'https://t3.ftcdn.net/jpg/01/13/84/58/360_F_113845833_swa3YoP0b8qOZnNcVq0hSJmhW15kvPze.jpg', // Ebene 2 Bild 2
+            'https://static.vecteezy.com/system/resources/previews/008/957/248/non_2x/football-icon-clipart-soccer-in-flat-animated-illustration-on-white-background-vector.jpg', // Ebene 2 Bild 3
+        ],
+        [
+            'https://media.istockphoto.com/id/1364983877/vector/fried-egg-pan-breakfast-vector-emoji-illustration.jpg?s=612x612&w=0&k=20&c=A31GEBDxx2MnXMzKQ-S6DdeENFZ5-CR8heXMZTo4NuY=', // Ebene 3 Bild 1
+            'https://us.123rf.com/450wm/jemastock/jemastock1711/jemastock171101753/88980207-handschuh-der-hammerikonenvektor-illustrationsgrafikdesign-h%C3%A4lt.jpg?ver=6', // Ebene 3 Bild 2
+            'https://img.freepik.com/premium-vector/eco-electrocar-icon-zero-emission-vehicle-battery-charging-station-sign_599062-3728.jpg', // Ebene 3 Bild 3
+        ],
     ];
 
     // Funktion, um Knoten zu platzieren
@@ -52,8 +60,8 @@ const TreePage: React.FC = () => {
             id: '0',
             x: centerX,
             y: centerY,
-            label: 'Root',
-            icon: <HomeIcon style={{ fontSize: 20, color: 'white' }} />,
+            label: '',
+            imageUrl: '',
         },
     ];
     const links: Link[] = [];
@@ -63,7 +71,7 @@ const TreePage: React.FC = () => {
         if (level > 3) return; // Begrenze die Tiefe auf 3 Ebenen
 
         // Der horizontale Abstand nimmt mit jeder Ebene zu
-        const horizontalRadius = (horizontalBase / Math.pow(3, level - 1)) * 1.5;
+        const horizontalRadius = (horizontalBase / Math.pow(3, level - 1)) * 1.2;
 
         const offsets = [
             { idSuffix: 'l', offsetX: -horizontalRadius, offsetY: verticalStep },
@@ -81,7 +89,7 @@ const TreePage: React.FC = () => {
                 x: position.x,
                 y: position.y,
                 label: id.toUpperCase(),
-                icon: levelIcons[level - 1][i], // Wechsle Icons basierend auf der Ebene
+                imageUrl: levelImages[level - 1][i], // Wechsle Bilder basierend auf der Ebene
             });
             links.push({ source: parentId, target: id });
 
@@ -96,6 +104,15 @@ const TreePage: React.FC = () => {
     return (
         <div style={{ width: '100%', height: '100%', backgroundColor: '#1e1e1e' }}>
             <svg width="100%" height="100%" viewBox="0 0 1500 800">
+                <defs>
+                    {/* Definiere eine Maske für die Knoten */}
+                    {nodes.map((node) => (
+                        <clipPath key={`clip-${node.id}`} id={`clip-${node.id}`}>
+                            <circle cx={0} cy={0} r={nodeRadius} />
+                        </clipPath>
+                    ))}
+                </defs>
+
                 {/* Links */}
                 {links.map((link, index) => {
                     const sourceNode = nodes.find((node) => node.id === link.source);
@@ -123,22 +140,27 @@ const TreePage: React.FC = () => {
                         onMouseEnter={() => setHoveredNode(node.id)} // Setze den gehovten Knoten
                         onMouseLeave={() => setHoveredNode(null)} // Entferne den gehovten Knoten
                     >
-                        {/* Kreis für den Node */}
-                        <circle r={20} fill="#00BFFF" />
-                        {/* Icon */}
-                        {node.icon && (
-                            <foreignObject x={-10} y={-10} width={20} height={20}>
-                                {node.icon}
-                            </foreignObject>
+                        {/* Bild wird auf den Kreis zugeschnitten */}
+                        {node.imageUrl ? (
+                            <image
+                                href={node.imageUrl}
+                                x={-nodeRadius}
+                                y={-nodeRadius}
+                                width={nodeRadius * 2}
+                                height={nodeRadius * 2}
+                                clipPath={`url(#clip-${node.id})`} // Anwenden der Maske
+                            />
+                        ) : (
+                            <circle r={nodeRadius} fill="#00BFFF" />
                         )}
                         {/* Label nur beim Hovern anzeigen */}
                         {hoveredNode === node.id && node.label && (
                             <text
                                 x={0}
-                                y={60}
+                                y={nodeRadius + 15}
                                 fill="white"
                                 textAnchor="middle"
-                                fontSize="20px"
+                                fontSize="10px"
                             >
                                 {node.label}
                             </text>
