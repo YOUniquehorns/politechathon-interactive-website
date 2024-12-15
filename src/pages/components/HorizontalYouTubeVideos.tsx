@@ -1,6 +1,8 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
 import {addVideoClicked, resetVideoClicked} from "../../tools/progress-tracker";
+import {Box, Typography} from "@mui/material";
+import PsychologyIcon from "@mui/icons-material/Psychology";
 
 declare global {
     interface Window {
@@ -153,43 +155,52 @@ const HorizontalYouTubeVideos: React.FC = () => {
     };
 
     return (
-        <div
-            style={{
-                display: 'flex',
-                gap: `${gap}px`,
-                padding: '20px',
-                justifyContent: 'center',
-                alignItems: 'center',
-                height: '100vh',
-                overflow: 'hidden', // Prevent horizontal scrollbar
-                flexWrap: 'nowrap', // Ensure videos stay side-by-side
-                boxSizing: 'border-box',
-                width: '100vw' // Ensure container takes full viewport width
-            }}
-        >
-            {videoIds && videoIds.map((id, index) => (
-                <div
-                    key={id}
-                    style={{
-                        flex: `0 0 ${calculateVideoWidth()}`, // Fixed width based on number of videos
-                        aspectRatio: '9 / 16', // Maintain 16:9 aspect ratio
-                        position: 'relative',
-                        background: '#000'
-                    }}
-                >
+        <>
+            {/* Header Section */}
+            <Box sx={{ display: 'flex', alignItems: 'center', marginTop:"2em", marginLeft:"2em", mb: 4 }}>
+                <PsychologyIcon sx={{ fontSize: 40, mr: 2, color: 'primary.main' }} />
+                <Typography variant="h4" component="h1" fontWeight="bold">
+                    Lektion: <i>"Weißt du eigentlich, dass du gefragt hast?"</i>
+                </Typography>
+            </Box>
+            <div
+                style={{
+                    display: 'flex',
+                    gap: `${gap}px`,
+                    padding: '20px',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    height: '80vh',
+                    overflow: 'hidden', // Prevent horizontal scrollbar
+                    flexWrap: 'nowrap', // Ensure videos stay side-by-side
+                    boxSizing: 'border-box',
+                    width: '100vw' // Ensure container takes full viewport width
+                }}
+            >
+                {videoIds && videoIds.map((id, index) => (
                     <div
-                        id={`player-${id}`}
+                        key={id}
                         style={{
-                            position: 'absolute',
-                            top: 0,
-                            left: 0,
-                            width: '100%',
-                            height: '100%'
+                            flex: `0 0 ${calculateVideoWidth()}`, // Fixed width based on number of videos
+                            aspectRatio: '9 / 16', // Maintain 16:9 aspect ratio
+                            position: 'relative',
+                            background: '#000'
                         }}
-                    ></div>
-                </div>
-            ))}
-        </div>
+                    >
+                        <div
+                            id={`player-${id}`}
+                            style={{
+                                position: 'absolute',
+                                top: 0,
+                                left: 0,
+                                width: '100%',
+                                height: '100%'
+                            }}
+                        ></div>
+                    </div>
+                ))}
+            </div>
+        </>
     );
 };
 
