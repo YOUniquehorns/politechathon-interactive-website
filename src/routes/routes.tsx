@@ -6,6 +6,7 @@ import ModuleThreeReflection from '../pages/modules/ModuleThreeReflection';
 import ModuleThreeExperiment from '../pages/modules/ModuleThreeExperiment';
 import React from "react";
 import HorizontalYouTubeVideos from "../pages/components/HorizontalYouTubeVideos";
+import TreePage from "../pages/components/TreePage";
 
 export interface ManagedRoute {
     path: string
@@ -53,5 +54,10 @@ export const routes: (ManagedRoute)[] = [
         path: "/session/intro/video1",
         name: "VideoPage1",
         child: <HorizontalYouTubeVideos />,
+    },
+    {
+        path: "/treepage",
+        name: "TreePage",
+        child: <TreePage />,
     },
 ]
