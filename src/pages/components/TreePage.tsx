@@ -194,7 +194,7 @@ const TreePage: React.FC = () => {
                                 y1={sourceNode.y}
                                 x2={targetNode.x}
                                 y2={targetNode.y}
-                                stroke={isHighlighted ? "green" : "#E3F3FAFF"}
+                                stroke={isHighlighted ? "#789D25" : "#E3F3FAFF"}
                                 strokeWidth={isHighlighted ? 4 : 2}
                             />
                         </g>
