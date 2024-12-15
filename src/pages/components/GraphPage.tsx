@@ -103,7 +103,7 @@ const GraphPage: React.FC = () => {
                     </p>
                     <ul>
                         <li>Über Knoten hovern, um deren Namen zu sehen.</li>
-                        <li>Auf einen Knoten klicken, um weitere Details zu öffnen.</li>
+                        <li>Auf einen Knoten klicken, um eine Lektion zu öffnen.</li>
                         <li>Den Graphen verschieben und zoomen, indem du die Maus benutzt.</li>
                     </ul>
                     <p>Klicke auf "Verstanden!", um diese Anleitung zu schließen.</p>
