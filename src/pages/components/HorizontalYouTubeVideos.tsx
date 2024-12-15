@@ -1,6 +1,6 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {useNavigate, useParams} from 'react-router-dom';
-import {addVideoClicked} from "../../tools/progress-tracker";
+import {addVideoClicked, resetVideoClicked} from "../../tools/progress-tracker";
 
 declare global {
     interface Window {
@@ -48,48 +48,47 @@ const HorizontalYouTubeVideos: React.FC = () => {
     const [videoIds, setVideoIds] = useState<string[]>([]);
 
     const playerRefs = useRef<Array<any>>([]);
-    const [timerStarted, setTimerStarted] = useState(false);
     const [navigated, setNavigated] = useState(false);
     const timerRef = useRef<NodeJS.Timeout | null>(null);
 
     useEffect(() => {
-        if (nodeId) {
-            setVideoIds(theVideoIds[nodeId] || []);
-            setTimerStarted(false);
-            setNavigated(false);
+        if (nodeId === "0"){
+            resetVideoClicked()
         }
     }, [nodeId]);
 
     useEffect(() => {
-        if (timerStarted) {
-            // Start a 2-second timer
-            timerRef.current = setTimeout(() => {
-                if (!navigated) {
-                    setNavigated(true);
-                    const numericNodeId = Number(nodeId);
-                    navigate('/session/intro/video/' + (numericNodeId + 1));
-                }
-            }, 2000);
+        if (nodeId) {
+            setVideoIds(theVideoIds[nodeId] || []);
+            setNavigated(false);
         }
-    }, [timerStarted, navigated, navigate, nodeId]);
+    }, [nodeId]);
 
     const onPlayerStateChange = (event: any) => {
         const YT = window.YT;
         if (!YT) return;
 
         if (event.data === YT.PlayerState.PLAYING) {
-            if (!timerStarted && !navigated) {
+            if (!timerRef.current && !navigated) {
                 const videoId = event.target?.getVideoData()?.video_id;
                 const clickedName = getClickedNameByVideoId(videoId);
 
                 console.log(clickedName);
                 addVideoClicked(clickedName);
-                setTimerStarted(true);
+                // Start a 2-second timer
+                timerRef.current = setTimeout(() => {
+                    if (!navigated) {
+                        setNavigated(true);
+                        const numericNodeId = Number(nodeId);
+                        navigate('/session/intro/video/' + (numericNodeId + 1));
+                    }
+                }, 2000);
             }
         } else if (event.data === YT.PlayerState.ENDED) {
             if (!navigated) {
                 if (timerRef.current) {
                     clearTimeout(timerRef.current);
+                    timerRef.current = null;
                 }
                 setNavigated(true);
                 const numericNodeId = Number(nodeId);
@@ -115,11 +114,12 @@ const HorizontalYouTubeVideos: React.FC = () => {
         return () => {
             if (timerRef.current) {
                 clearTimeout(timerRef.current);
+                timerRef.current = null;
             }
             // Destroy YouTube players on unmount
             playerRefs.current.forEach(player => player.destroy());
         };
-    }, [navigate, navigated, timerStarted, videoIds, nodeId]);
+    }, [navigate, navigated, videoIds, nodeId]);
 
     // Configuration for responsive layout
     const numberOfVideos = videoIds.length;

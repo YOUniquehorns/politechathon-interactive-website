@@ -29,15 +29,18 @@ export const useModuleProgress = (lectureId: string) => {
 const VIDEO_CLICKED_KEY = 'videoClicked';
 
 export const getClickedVideos = (): string[] => {
-        const storedClickedVideos = localStorage.getItem(VIDEO_CLICKED_KEY);
+    const storedClickedVideos = localStorage.getItem(VIDEO_CLICKED_KEY);
     return storedClickedVideos ? JSON.parse(storedClickedVideos) : [];
 };
 
+export const resetVideoClicked = (): void => {
+    localStorage.removeItem(VIDEO_CLICKED_KEY);
+};
 export const addVideoClicked = (videoId: string): void => {
-        const storedClickedVideos = localStorage.getItem(VIDEO_CLICKED_KEY);
-        const parsedClickedVideos: string[] = storedClickedVideos ? JSON.parse(storedClickedVideos) : [];
-        if (!parsedClickedVideos.includes(videoId)) {
-            parsedClickedVideos.push(videoId);
-            localStorage.setItem(VIDEO_CLICKED_KEY, JSON.stringify(parsedClickedVideos));
-        }
-    };
+    const storedClickedVideos = localStorage.getItem(VIDEO_CLICKED_KEY);
+    const parsedClickedVideos: string[] = storedClickedVideos ? JSON.parse(storedClickedVideos) : [];
+    if (!parsedClickedVideos.includes(videoId)) {
+        parsedClickedVideos.push(videoId);
+        localStorage.setItem(VIDEO_CLICKED_KEY, JSON.stringify(parsedClickedVideos));
+    }
+};
