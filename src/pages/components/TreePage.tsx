@@ -1,4 +1,7 @@
 import React, { useState } from 'react';
+import { withAiAnimation } from "../../tools/AiAnimation";
+import {getClickedVideos} from "../../tools/progress-tracker";
+import {Stack, Typography} from "@mui/material";
 
 interface Node {
     id: string;
@@ -11,38 +14,51 @@ interface Node {
 interface Link {
     source: string;
     target: string;
+    label?: string;
 }
 
 const TreePage: React.FC = () => {
-    const [hoveredNode, setHoveredNode] = useState<string | null>(null); // State für den gehovten Knoten
+    const [hoveredNode, setHoveredNode] = useState<string | null>(null);
 
-    const centerX = 750; // Mittelpunkt des Graphen (X)
-    const centerY = 100; // Mittelpunkt des Graphen (Y)
-    const horizontalBase = 300; // Basisabstand für die horizontale Verteilung
-    const verticalStep = 150; // Vertikaler Abstand zwischen den Ebenen
+    const centerX = 750;
+    const centerY = 50;
+    const horizontalBase = 300;
+    const verticalStep = 150;
 
-    const nodeRadius = 20; // Radius der Nodes
+    const nodeRadius = 20;
 
-    // Bilder-URLs für die Ebenen
+    const levelLabels = [
+        ["Politik", "Katzen", "Wintersport"], // Ebene 1
+        ["Music", "CSD", "Mannschaftssport"], // Ebene 2
+        ["Kochen", "Basteln", "e-Mobilität"], // Ebene 3
+    ];
+
+    const levelAttributes = [
+        ["politikinteressiert", "katzenliebend", "Wintersportler"], // Ebene 1
+        ["ein Swiftie", "Teil des CSD", "fussballbegeistert"], // Ebene 2
+        ["und kochst gerne.", "und bastelst gerne.", "und interessiert an e-Mobilität."], // Ebene 3
+    ];
+
     const levelImages = [
         [
-            'https://ih1.redbubble.net/image.5541324284.6118/st,small,507x507-pad,600x600,f8f8f8.u3.jpg', // Ebene 1 Bild 1
-            'https://www.shutterstock.com/shutterstock/photos/2000070206/display_1500/stock-vector-cat-home-farm-animals-emoji-illustration-face-vector-design-art-flat-vector-dog-emoji-cat-face-2000070206.jpg', // Ebene 1 Bild 2
-            'https://images.emojiterra.com/google/noto-emoji/unicode-15/color/512px/26f7.png', // Ebene 1 Bild 3
+            'https://ih1.redbubble.net/image.5541324284.6118/st,small,507x507-pad,600x600,f8f8f8.u3.jpg',
+            'https://www.shutterstock.com/shutterstock/photos/2000070206/display_1500/stock-vector-cat-home-farm-animals-emoji-illustration-face-vector-design-art-flat-vector-dog-emoji-cat-face-2000070206.jpg',
+            'https://images.emojiterra.com/google/noto-emoji/unicode-15/color/512px/26f7.png',
         ],
         [
-            'https://i.pinimg.com/736x/b9/a4/95/b9a495527a7e14e8b49f8900acf59e36.jpg', // Ebene 2 Bild 1
-            'https://t3.ftcdn.net/jpg/01/13/84/58/360_F_113845833_swa3YoP0b8qOZnNcVq0hSJmhW15kvPze.jpg', // Ebene 2 Bild 2
-            'https://static.vecteezy.com/system/resources/previews/008/957/248/non_2x/football-icon-clipart-soccer-in-flat-animated-illustration-on-white-background-vector.jpg', // Ebene 2 Bild 3
+            'https://i.pinimg.com/736x/b9/a4/95/b9a495527a7e14e8b49f8900acf59e36.jpg',
+            'https://t3.ftcdn.net/jpg/01/13/84/58/360_F_113845833_swa3YoP0b8qOZnNcVq0hSJmhW15kvPze.jpg',
+            'https://static.vecteezy.com/system/resources/previews/008/957/248/non_2x/football-icon-clipart-soccer-in-flat-animated-illustration-on-white-background-vector.jpg',
         ],
         [
-            'https://media.istockphoto.com/id/1364983877/vector/fried-egg-pan-breakfast-vector-emoji-illustration.jpg?s=612x612&w=0&k=20&c=A31GEBDxx2MnXMzKQ-S6DdeENFZ5-CR8heXMZTo4NuY=', // Ebene 3 Bild 1
-            'https://us.123rf.com/450wm/jemastock/jemastock1711/jemastock171101753/88980207-handschuh-der-hammerikonenvektor-illustrationsgrafikdesign-h%C3%A4lt.jpg?ver=6', // Ebene 3 Bild 2
-            'https://img.freepik.com/premium-vector/eco-electrocar-icon-zero-emission-vehicle-battery-charging-station-sign_599062-3728.jpg', // Ebene 3 Bild 3
+            'https://media.istockphoto.com/id/1364983877/vector/fried-egg-pan-breakfast-vector-emoji-illustration.jpg?s=612x612&w=0&k=20&c=A31GEBDxx2MnXMzKQ-S6DdeENFZ5-CR8heXMZTo4NuY=',
+            'https://us.123rf.com/450wm/jemastock/jemastock1711/jemastock171101753/88980207-handschuh-der-hammerikonenvektor-illustrationsgrafikdesign-h%C3%A4lt.jpg?ver=6',
+            'https://img.freepik.com/premium-vector/eco-electrocar-icon-zero-emission-vehicle-battery-charging-station-sign_599062-3728.jpg',
         ],
     ];
 
-    // Funktion, um Knoten zu platzieren
+    const clickedVideos = getClickedVideos(); // Ausgewählte Videos
+
     const calculateNodePosition = (
         parentX: number,
         parentY: number,
@@ -54,7 +70,6 @@ const TreePage: React.FC = () => {
         return { x, y };
     };
 
-    // Generiere Knoten und Links
     const nodes: Node[] = [
         {
             id: '0',
@@ -66,12 +81,10 @@ const TreePage: React.FC = () => {
     ];
     const links: Link[] = [];
 
-    // Erstelle den Baum
     const createBranches = (parentId: string, parentX: number, parentY: number, level: number) => {
-        if (level > 3) return; // Begrenze die Tiefe auf 3 Ebenen
+        if (level > 3) return;
 
-        // Der horizontale Abstand nimmt mit jeder Ebene zu
-        const horizontalRadius = (horizontalBase / Math.pow(3, level - 1)) * 1.2;
+        const horizontalRadius = (horizontalBase / Math.pow(3, level - 1)) * 1.5;
 
         const offsets = [
             { idSuffix: 'l', offsetX: -horizontalRadius, offsetY: verticalStep },
@@ -89,58 +102,112 @@ const TreePage: React.FC = () => {
                 x: position.x,
                 y: position.y,
                 label: id.toUpperCase(),
-                imageUrl: levelImages[level - 1][i], // Wechsle Bilder basierend auf der Ebene
+                imageUrl: levelImages[level - 1][i],
             });
-            links.push({ source: parentId, target: id });
+            links.push({
+                source: parentId,
+                target: id,
+                label: levelLabels[level - 1][i],
+            });
 
-            // Rekursive Erstellung der nächsten Ebene
             createBranches(id, position.x, position.y, level + 1);
         }
     };
 
-    // Starte die Generierung ab der Wurzel
     createBranches('0', centerX, centerY, 1);
 
+    const getHighlightedLinks = () => {
+        const highlightedLinks: Link[] = [];
+        let currentSource = "0";
+
+        clickedVideos.forEach((clickedVideo, level) => {
+            const link = links.find(
+                (link) => link.source === currentSource && link.label === clickedVideo
+            );
+
+            if (link) {
+                highlightedLinks.push(link);
+                currentSource = link.target as string;
+            }
+        });
+
+        return highlightedLinks;
+    };
+
+    const highlightedLinks = getHighlightedLinks();
+
+    const generateDescription = () => {
+        const descriptions: string[] = [];
+        let currentSource = "0";
+
+        clickedVideos.forEach((clickedVideo, level) => {
+            const link = links.find(
+                (link) => link.source === currentSource && link.label === clickedVideo
+            );
+
+            if (link) {
+                const attributeIndex = levelLabels[level].indexOf(clickedVideo);
+                if (attributeIndex !== -1) {
+                    descriptions.push(levelAttributes[level][attributeIndex]);
+                }
+                currentSource = link.target as string;
+            }
+        });
+
+        return descriptions.join(", ");
+    };
+
+    const finalDescription = generateDescription();
+
     return (
-        <div style={{ width: '100%', height: '100%', backgroundColor: '#1e1e1e' }}>
-            <svg width="100%" height="100%" viewBox="0 0 1500 800">
+
+        <Stack>
+            <Typography variant={"h5"} align={"center"} sx={{
+                marginTop:"2em",
+                marginBottom:"2em"
+            }}>
+                <b>Jede Aktion zählt! Für den Algorithmus bist du ...</b>
+            </Typography>
+
+            <svg width="100%" height="100%" viewBox="0 0 1500 550">
                 <defs>
-                    {/* Definiere eine Maske für die Knoten */}
                     {nodes.map((node) => (
                         <clipPath key={`clip-${node.id}`} id={`clip-${node.id}`}>
-                            <circle cx={0} cy={0} r={nodeRadius} />
+                            <circle cx={0} cy={0} r={nodeRadius}/>
                         </clipPath>
                     ))}
                 </defs>
 
-                {/* Links */}
                 {links.map((link, index) => {
                     const sourceNode = nodes.find((node) => node.id === link.source);
                     const targetNode = nodes.find((node) => node.id === link.target);
                     if (!sourceNode || !targetNode) return null;
 
+                    const isHighlighted = highlightedLinks.some(
+                        (hl) => hl.source === link.source && hl.target === link.target
+                    );
+
                     return (
-                        <line
-                            key={index}
-                            x1={sourceNode.x}
-                            y1={sourceNode.y}
-                            x2={targetNode.x}
-                            y2={targetNode.y}
-                            stroke="#E3F3FA"
-                            strokeWidth={2}
-                        />
+                        <g key={index}>
+                            <line
+                                x1={sourceNode.x}
+                                y1={sourceNode.y}
+                                x2={targetNode.x}
+                                y2={targetNode.y}
+                                stroke={isHighlighted ? "green" : "#E3F3FAFF"}
+                                strokeWidth={isHighlighted ? 4 : 2}
+                            />
+                        </g>
                     );
                 })}
 
-                {/* Nodes */}
                 {nodes.map((node) => (
                     <g
                         key={node.id}
                         transform={`translate(${node.x}, ${node.y})`}
-                        onMouseEnter={() => setHoveredNode(node.id)} // Setze den gehovten Knoten
-                        onMouseLeave={() => setHoveredNode(null)} // Entferne den gehovten Knoten
+                        onMouseEnter={() => setHoveredNode(node.id)}
+                        onMouseLeave={() => setHoveredNode(null)}
                     >
-                        {/* Bild wird auf den Kreis zugeschnitten */}
                         {node.imageUrl ? (
                             <image
                                 href={node.imageUrl}
@@ -148,28 +215,23 @@ const TreePage: React.FC = () => {
                                 y={-nodeRadius}
                                 width={nodeRadius * 2}
                                 height={nodeRadius * 2}
-                                clipPath={`url(#clip-${node.id})`} // Anwenden der Maske
+                                clipPath={`url(#clip-${node.id})`}
                             />
                         ) : (
-                            <circle r={nodeRadius} fill="#00BFFF" />
-                        )}
-                        {/* Label nur beim Hovern anzeigen */}
-                        {hoveredNode === node.id && node.label && (
-                            <text
-                                x={0}
-                                y={nodeRadius + 15}
-                                fill="white"
-                                textAnchor="middle"
-                                fontSize="10px"
-                            >
-                                {node.label}
-                            </text>
+                            <circle r={nodeRadius} fill="#789D25"/>
                         )}
                     </g>
                 ))}
             </svg>
-        </div>
-    );
+
+            <Typography variant={"h6"} align={"center"} sx={{
+                marginTop:"2em"
+            }}>
+                <b>... {finalDescription}</b>
+            </Typography>
+        </Stack>
+)
+    ;
 };
 
-export default TreePage;
+export default withAiAnimation(TreePage);
