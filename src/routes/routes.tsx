@@ -50,7 +50,7 @@ export const routes: (ManagedRoute)[] = [
         child: <ModuleThreeExperiment />
     },
     {
-        path: "/session/intro/video1",
+        path: "/session/intro/video/:nodeId",
         name: "VideoPage1",
         child: <HorizontalYouTubeVideos />,
     },

@@ -4,14 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c080f3bf-5d12-404f-b156-9249160e0341" name="Changes" comment="specify node version">
-      <change afterPath="$PROJECT_DIR$/src/pages/components/HorizontalYouTubeVideos.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/components/VideosPage1.tsx" afterDir="false" />
+    <list default="true" id="c080f3bf-5d12-404f-b156-9249160e0341" name="Changes" comment="add(): 3 videos (part 1)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/pages/components/GraphPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/components/GraphPage.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routes/Routing.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/Routing.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/components/HorizontalYouTubeVideos.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/components/HorizontalYouTubeVideos.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/routes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/routes.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -38,6 +34,9 @@
   <component name="KubernetesApiProvider">{
   &quot;isMigrated&quot;: true
 }</component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 8
 }</component>
@@ -53,10 +52,12 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.go.formatter.settings.were.checked": "true",
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "main",
     "go.import.settings.migrated": "true",
+    "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "/Users/felix/Projekte/Politechaton/interactive-website",
+    "last_opened_file_path": "C:/Projekte/wahlexe/politechathon-interactive-website/src/pages/components",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -68,6 +69,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Projekte\wahlexe\politechathon-interactive-website\src\pages\components" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/src/pages/modules" />
       <recent name="$PROJECT_DIR$/src/routes" />
@@ -98,6 +100,7 @@
       <updated>1734175201740</updated>
       <workItem from="1734175202609" duration="2182000" />
       <workItem from="1734180705966" duration="2200000" />
+      <workItem from="1734199137683" duration="8753000" />
     </task>
     <task id="LOCAL-00001" summary="initialize project">
       <option name="closed" value="true" />
@@ -147,7 +150,15 @@
       <option name="project" value="LOCAL" />
       <updated>1734185533670</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="add(): 3 videos (part 1)">
+      <option name="closed" value="true" />
+      <created>1734193529806</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1734193529806</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -160,7 +171,8 @@
     <MESSAGE value="update dockerignore" />
     <MESSAGE value="use base node image" />
     <MESSAGE value="specify node version" />
-    <option name="LAST_COMMIT_MESSAGE" value="specify node version" />
+    <MESSAGE value="add(): 3 videos (part 1)" />
+    <option name="LAST_COMMIT_MESSAGE" value="add(): 3 videos (part 1)" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

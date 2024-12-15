@@ -34,7 +34,7 @@ const GraphPage: React.FC = () => {
 
     const handleNodeClick = (node: MyNodeObject) => {
         if (node.id === 'intro/video1') {
-            navigate(`/session/intro/video1`);
+            navigate(`/session/intro/video/0`);
         } else {
             // Navigate to other page with node id
             navigate(`/other/${node.id}`);

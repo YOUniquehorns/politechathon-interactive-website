@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useParams } from "react-router-dom";
 
 declare global {
     interface Window {
@@ -8,13 +9,28 @@ declare global {
     }
 }
 
+const theVideoIds: Record<string, string[]> = {
+    "0": [
+        'jcNzoONhrmE', // Politik
+        '5jqHZTz-2PM', // Katzen
+        'jEGyK7e7POY'  // Wintersport
+    ],
+    "1": [
+        '4GXrTXlsBmo', // Music
+        'gT-2uXDk-zg', // CSD
+        '9t-3_d_8wiE', // Mannschaftssport
+    ],
+    "2": [
+        'WrsEmmz7dAg', // Kochen
+        'MdQS6xA-R-w', // Basteln
+        'gcHy5SCQab0', // e-Mobilität
+    ]
+}
+
 const HorizontalYouTubeVideos: React.FC = () => {
     const navigate = useNavigate();
-    const videoIds = [
-        'jcNzoONhrmE', // Example 1
-        '5jqHZTz-2PM', // Example 2
-        'jEGyK7e7POY'  // Example 3
-    ];
+    const { nodeId } = useParams<{ nodeId: string }>();
+    const [videoIds, setVideoIds] = useState<string[]>([]);
 
     const playerRefs = useRef<Array<any>>([]);
     const [timerStarted, setTimerStarted] = useState(false);
@@ -22,57 +38,54 @@ const HorizontalYouTubeVideos: React.FC = () => {
     const timerRef = useRef<NodeJS.Timeout | null>(null);
 
     useEffect(() => {
+        if (nodeId) {
+            setVideoIds(theVideoIds[nodeId] || []);
+            setTimerStarted(false);
+            setNavigated(false);
+        }
+    }, [nodeId]);
+
+    useEffect(() => {
         if (timerStarted) {
-            // Start a 3 second timer
-            setTimeout(() => {
+            // Start a 2-second timer
+            timerRef.current = setTimeout(() => {
                 if (!navigated) {
                     setNavigated(true);
-                    navigate('/next');
+                    const numericNodeId = Number(nodeId);
+                    navigate('/session/intro/video/' + (numericNodeId + 1));
                 }
-            }, 3000);
+            }, 2000);
         }
-    }, [timerStarted]);
+    }, [timerStarted, navigated, navigate, nodeId]);
 
     useEffect(() => {
         const onPlayerStateChange = (event: any) => {
             const YT = window.YT;
             if (!YT) return;
 
-            // YouTube player states:
-            // -1 (unstarted)
-            // 0 (ended)
-            // 1 (playing)
-            // 2 (paused)
-            // 3 (buffering)
-            // 5 (video cued)
-
             if (event.data === YT.PlayerState.PLAYING) {
-                // Once a video starts playing, if we haven't started the timer, start it now.
                 if (!timerStarted && !navigated) {
                     setTimerStarted(true);
                 }
             } else if (event.data === YT.PlayerState.ENDED) {
-                // If the video ends before 3 seconds, navigate immediately.
                 if (!navigated) {
                     if (timerRef.current) {
                         clearTimeout(timerRef.current);
                     }
                     setNavigated(true);
-                    navigate('/next');
+                    const numericNodeId = Number(nodeId);
+                    navigate('/session/intro/video/' + (numericNodeId + 1));
                 }
             }
         };
 
-        // Poll until the YouTube API is ready, then create players
         const interval = setInterval(() => {
             if (window.YT && window.YT.Player) {
                 clearInterval(interval);
                 videoIds.forEach((id, index) => {
-                    const player = new window.YT.Player(`player-${index}`, {
+                    const player = new window.YT.Player(`player-${id}`, {
                         videoId: id,
-                        events: {
-                            'onStateChange': onPlayerStateChange
-                        }
+                        events: { 'onStateChange': onPlayerStateChange }
                     });
                     playerRefs.current.push(player);
                 });
@@ -80,19 +93,60 @@ const HorizontalYouTubeVideos: React.FC = () => {
         }, 100);
 
         return () => {
-            // Cleanup on component unmount
             if (timerRef.current) {
                 clearTimeout(timerRef.current);
             }
+            // Destroy YouTube players on unmount
+            playerRefs.current.forEach(player => player.destroy());
         };
-    }, [navigate, navigated, timerStarted, videoIds]);
+    }, [navigate, navigated, timerStarted, videoIds, nodeId]);
+
+    // Configuration for responsive layout
+    const numberOfVideos = videoIds.length;
+    const gap = 20; // Gap between videos in pixels
+    const containerPadding = 80; // Total horizontal padding (20px left + 20px right)
+
+    // Calculate the width for each video to fit within the container
+    const calculateVideoWidth = () => {
+        if (numberOfVideos === 0) return '0%';
+        return `calc(${100 / numberOfVideos}% - ${(gap * (numberOfVideos - 1)) / numberOfVideos}px)`;
+    };
 
     return (
-        <div style={{ display: 'flex', gap: '20px', padding: '20px' }}>
-            {videoIds.map((id, index) => (
-                <div key={id}>
-                    {/* Player container - the YT Player will be injected here */}
-                    <div id={`player-${index}`} style={{ width: "325px", height: "574px" }}></div>
+        <div
+            style={{
+                display: 'flex',
+                gap: `${gap}px`,
+                padding: '20px',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: '100vh',
+                overflow: 'hidden', // Prevent horizontal scrollbar
+                flexWrap: 'nowrap', // Ensure videos stay side-by-side
+                boxSizing: 'border-box',
+                width: '100vw' // Ensure container takes full viewport width
+            }}
+        >
+            {videoIds && videoIds.map((id, index) => (
+                <div
+                    key={id}
+                    style={{
+                        flex: `0 0 ${calculateVideoWidth()}`, // Fixed width based on number of videos
+                        aspectRatio: '9 / 16', // Maintain 16:9 aspect ratio
+                        position: 'relative',
+                        background: '#000'
+                    }}
+                >
+                    <div
+                        id={`player-${id}`}
+                        style={{
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            width: '100%',
+                            height: '100%'
+                        }}
+                    ></div>
                 </div>
             ))}
         </div>
