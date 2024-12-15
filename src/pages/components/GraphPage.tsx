@@ -132,6 +132,8 @@ const GraphPage: React.FC = () => {
             <div style={{ width: '100%', height: 'calc(100vh - 100px)' }}>
                 <ForceGraph2D
                     graphData={graphData}
+                    enableZoomInteraction={false}
+                    minZoom={5}
                     linkWidth={4} // Make the links thicker
                     nodeLabel={(node: MyNodeObject) => node.name || ''}
                     onNodeHover={handleNodeHover}
