@@ -14,6 +14,14 @@ const nodeToLink = (nodeId: string) => {
     switch (nodeId) {
         case 'node1':
             return '/session/intro/video/0';
+        case 'node2':
+            return '/module-three/reflection';
+        case 'node6':
+            return '/module-three/experiment';
+        case 'node4':
+            return '/module-four';
+        case 'podcast':
+            return '/module-four/podcast';
         default:
             return undefined;
     }
@@ -35,7 +43,8 @@ const GraphPage: React.FC = () => {
             {id: 'node4', name: 'Manipulative Algorithmen und Konsumverhalten'},
             {id: 'node5', name: 'Co-Creation & Weiterentwicklung'},
             {id: 'node6', name: 'Verzerrte Wirklichkeiten - KI-Halluzination'},
-            {id: 'node7', name: 'KI Act'},
+            {id: 'podcast', name: 'Podcast'},
+            {id: 'node7', name: ''},
             {id: 'node8', name: ''},
             {id: 'node9', name: ''},
             {id: 'node10', name: ''}
@@ -50,6 +59,7 @@ const GraphPage: React.FC = () => {
             {source: 'node6', target: 'node8'},
             {source: 'node6', target: 'node9'},
             {source: 'node5', target: 'node10'},
+            {source: 'node4', target: 'podcast'},
         ]
     };
 
