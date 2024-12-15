@@ -30,7 +30,7 @@ const ModuleFourReflection = () => {
         </Paper>
 
         {/* Tips Section */}
-        <Paper elevation={3} sx={{ p: 4, mb: 4, borderRadius: 2, bgcolor: 'success.light' }}>
+        <Paper elevation={3} sx={{ p: 4, mb: 4, borderRadius: 2, bgcolor: 'primary.light' }}>
           <Typography variant="h6" gutterBottom fontWeight="medium">
             Tipps für aktiven Nachrichtenkonsum:
           </Typography>

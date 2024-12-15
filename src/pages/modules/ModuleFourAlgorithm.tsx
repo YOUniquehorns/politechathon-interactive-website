@@ -37,7 +37,7 @@ const ModuleFourAlgorithm = () => {
           gutterBottom 
           sx={{
             fontWeight: 'bold',
-            background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
+            background: 'linear-gradient(45deg, #C8E97D 30%, #E8F5D6 90%)',
             backgroundClip: 'text',
             textFillColor: 'transparent',
             mb: 3
@@ -128,15 +128,13 @@ const ModuleFourAlgorithm = () => {
         </Grid>
 
         <Button 
-          variant="outlined" 
+          variant="contained"
           onClick={() => setShowExplanation(!showExplanation)}
           sx={{ 
             mb: 3,
-            color: 'primary.main',
-            borderColor: 'primary.main',
+            bgcolor: 'primary.main',
             '&:hover': {
-              backgroundColor: 'primary.main',
-              color: 'white'
+              bgcolor: 'primary.dark',
             }
           }}
         >
@@ -176,12 +174,13 @@ const ModuleFourAlgorithm = () => {
           gap: 2 
         }}>
           <Button 
-            variant="outlined" 
+            variant="contained" 
             onClick={() => navigate('/module-four')}
             sx={{
+              background: '#000000',
+              boxShadow: '0 3px 5px 2px rgba(0, 0, 0, .3)',
               '&:hover': {
-                backgroundColor: 'primary.main',
-                color: 'white'
+                background: '#333333',
               }
             }}
           >
@@ -191,10 +190,9 @@ const ModuleFourAlgorithm = () => {
             variant="contained" 
             onClick={() => navigate('/module-four/reflection')}
             sx={{
-              background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
-              boxShadow: '0 3px 5px 2px rgba(33, 203, 243, .3)',
+              bgcolor: 'primary.main',
               '&:hover': {
-                background: 'linear-gradient(45deg, #1976D2 30%, #2196F3 90%)',
+                bgcolor: 'primary.dark',
               }
             }}
           >

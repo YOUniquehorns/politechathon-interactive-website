@@ -13,14 +13,6 @@ const ModuleFourIntro = () => {
           Wirst du gesteuert oder steuerst du schon?
         </Typography>
         
-        <Box sx={{ my: 4 }}>
-          <img 
-            src="/images/reactive-consumption.svg" 
-            alt="Person scrolling through social media feed" 
-            style={{ width: '100%', maxWidth: '500px' }}
-          />
-        </Box>
-
         <Typography variant="h6" gutterBottom color="primary">
           Was ist reaktiver Nachrichtenkonsum?
         </Typography>
