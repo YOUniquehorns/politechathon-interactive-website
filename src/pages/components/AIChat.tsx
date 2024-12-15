@@ -96,7 +96,7 @@ const AIChat: React.FC<AIChatProps> = ({systemPrompt, firstQuestion}) => {
                 mb: 2, 
                 maxHeight: '400px', 
                 overflowY: 'auto',
-                backgroundColor: '#f8f9fa',
+                backgroundColor: '#ffffff',
                 borderRadius: 1,
                 p: 2
             }}>
