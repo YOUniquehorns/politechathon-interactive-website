@@ -1,6 +1,6 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useParams } from "react-router-dom";
+import React, {useEffect, useRef, useState} from 'react';
+import {useNavigate, useParams} from 'react-router-dom';
+import {addVideoClicked} from "../../tools/progress-tracker";
 
 declare global {
     interface Window {
@@ -25,6 +25,21 @@ const theVideoIds: Record<string, string[]> = {
         'MdQS6xA-R-w', // Basteln
         'gcHy5SCQab0', // e-Mobilität
     ]
+}
+
+const getClickedNameByVideoId = (videoId: string) => {
+    switch (videoId) {
+        case 'jcNzoONhrmE': return 'Politik';
+        case '5jqHZTz-2PM': return 'Katzen';
+        case 'jEGyK7e7POY': return 'Wintersport';
+        case '4GXrTXlsBmo': return 'Music';
+        case 'gT-2uXDk-zg': return 'CSD';
+        case '9t-3_d_8wiE': return 'Mannschaftssport';
+        case 'WrsEmmz7dAg': return 'Kochen';
+        case 'MdQS6xA-R-w': return 'Basteln';
+        case 'gcHy5SCQab0': return 'e-Mobilität';
+        default: return '';
+    }
 }
 
 const HorizontalYouTubeVideos: React.FC = () => {
@@ -58,27 +73,32 @@ const HorizontalYouTubeVideos: React.FC = () => {
         }
     }, [timerStarted, navigated, navigate, nodeId]);
 
-    useEffect(() => {
-        const onPlayerStateChange = (event: any) => {
-            const YT = window.YT;
-            if (!YT) return;
+    const onPlayerStateChange = (event: any) => {
+        const YT = window.YT;
+        if (!YT) return;
 
-            if (event.data === YT.PlayerState.PLAYING) {
-                if (!timerStarted && !navigated) {
-                    setTimerStarted(true);
-                }
-            } else if (event.data === YT.PlayerState.ENDED) {
-                if (!navigated) {
-                    if (timerRef.current) {
-                        clearTimeout(timerRef.current);
-                    }
-                    setNavigated(true);
-                    const numericNodeId = Number(nodeId);
-                    navigate('/session/intro/video/' + (numericNodeId + 1));
-                }
+        if (event.data === YT.PlayerState.PLAYING) {
+            if (!timerStarted && !navigated) {
+                const videoId = event.target?.getVideoData()?.video_id;
+                const clickedName = getClickedNameByVideoId(videoId);
+
+                console.log(clickedName);
+                addVideoClicked(clickedName);
+                setTimerStarted(true);
             }
-        };
+        } else if (event.data === YT.PlayerState.ENDED) {
+            if (!navigated) {
+                if (timerRef.current) {
+                    clearTimeout(timerRef.current);
+                }
+                setNavigated(true);
+                const numericNodeId = Number(nodeId);
+                navigate('/session/intro/video/' + (numericNodeId + 1));
+            }
+        }
+    };
 
+    useEffect(() => {
         const interval = setInterval(() => {
             if (window.YT && window.YT.Player) {
                 clearInterval(interval);
