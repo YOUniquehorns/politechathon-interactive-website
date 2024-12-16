@@ -50,7 +50,7 @@ const GraphPage: React.FC = () => {
             {id: 'node10', name: ''}
         ],
         links: [
-            {source: 'node1', target: 'node2'},
+            {source: 'node6', target: 'node2'},
             {source: 'node1', target: 'node3'},
             {source: 'node1', target: 'node4'},
             {source: 'node1', target: 'node5'},
@@ -164,14 +164,16 @@ const GraphPage: React.FC = () => {
                     nodeCanvasObject={(node, ctx) => {
                         const isHovered = hoveredNodeId.current === node.id;
 
-                        // Adjust Node Size
-                        const nodeRadius = 5;
+                        // Spezifische Knoten-IDs prüfen
+                        const nodeRadius = node.id === 'node1' ? 10 : 5; // Node 1 größer machen
+                        const nodeColor = node.id === 'node1' ? '#4E04B7' : '#789D25'
 
                         // Draw the node
                         ctx.beginPath();
                         ctx.arc(node.x!, node.y!, nodeRadius, 0, 2 * Math.PI, false);
-                        ctx.fillStyle = isHovered ? '#4E04B7' : '#789D25'; // Red on hover, light blue otherwise
+                        ctx.fillStyle = isHovered ? '#4E04B7' : nodeColor; // Red on hover, light blue otherwise
                         ctx.fill();
+
                         // Draw the node name
                         ctx.font = '2px Arial';
                         ctx.fillStyle = 'white';
